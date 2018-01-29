@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      My Health App
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-item>
+    <ion-input [(ngModel)]="name" type="tel" placeholder="Enter Name"></ion-input>
+  </ion-item>
+  <button ion-button (click)="userRegister()">Register</button>
+  <button ion-button (click)="getFood()">Get Users</button>
+  <ion-card>
+    <ion-card-content *ngFor="let speech of speechList">
+      <p>{{speech}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
