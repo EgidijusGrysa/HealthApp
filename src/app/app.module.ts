@@ -11,24 +11,29 @@ import { MainMenuPage } from '../pages/main-menu/main-menu';
 import { HttpModule } from '@angular/http';
 import { RegisterService } from '../services/register';
 import { FoodNutritionService } from '../services/foodNutrition';
+import { RegisterPage } from '../pages/register/register';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    MainMenuPage
+    MainMenuPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    MainMenuPage
+    MainMenuPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
