@@ -8,16 +8,24 @@
 
 
 <ion-content padding>
-  <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
-    <ion-list>
-      <ion-item>
+    <ion-item>
         <button ion-button>Use Voice</button>
       </ion-item>
+  <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      
       <ion-item>
         <ion-input id="name" 
           placeholder="Your First Name" 
           type="text"
           formControlName="name">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input id="password" 
+          placeholder="Your Password" 
+          type="password"
+          formControlName="password">
         </ion-input>
       </ion-item>
       <ion-item>

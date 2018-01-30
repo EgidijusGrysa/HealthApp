@@ -21,7 +21,7 @@ m : String[];
     public navCtrl: NavController,
     private speech: SpeechRecognition,
     private food: FoodNutritionService) {
-    this.user = new User();
+    //this.user = new User();
   }
 
   userRegister(){
