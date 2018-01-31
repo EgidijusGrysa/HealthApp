@@ -9,5 +9,34 @@
 
 
 <ion-content padding>
+  <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      
+      <ion-item>
+        <ion-input id="name" 
+          placeholder="Your First Name" 
+          type="text"
+          formControlName="email">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input id="password" 
+          placeholder="Your Password" 
+          type="password"
+          formControlName="password">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button large 
+        type="submit" 
+        [disabled]="!regForm.valid">Register</button>
+        
+      </ion-item>
+    </ion-list>
+  </form>
 
+  
+  <ion-tabs>
+      <ion-tab [root]="chatRoot" tabTitle="Chat" tabIcon="chat"></ion-tab>
+  </ion-tabs>
 </ion-content>

@@ -14,6 +14,7 @@ import { FoodNutritionService } from '../services/foodNutrition';
 import { RegisterPage } from '../pages/register/register';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginPage } from '../pages/login/login';
+import { TabsPage } from '../pages/tabs/tabs';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { LoginPage } from '../pages/login/login';
     HomePage,
     MainMenuPage,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { LoginPage } from '../pages/login/login';
     HomePage,
     MainMenuPage,
     RegisterPage,
-    LoginPage
+    LoginPage,
+    TabsPage
   ],
   providers: [
     StatusBar,
