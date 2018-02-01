@@ -4,6 +4,11 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { User } from '../../data/user';
+import { RegisterService } from '../../services/register';
+import { MyApp } from '../../app/app.component';
+import { App } from 'ionic-angular/components/app/app';
+import { MainMenuPage } from '../main-menu/main-menu';
 
 
 @IonicPage()
@@ -14,8 +19,20 @@ import { FormsModule } from '@angular/forms';
 export class LoginPage implements OnInit {
 regForm: FormGroup;
 
-  constructor(){}
+  constructor(private regService: RegisterService, private app: App){}
+
   onSubmit(){
+    const user = new User(this.regForm.value.email,this.regForm.value.password);
+    this.regService.signIn(user)
+    .subscribe(
+      data => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.userId);
+       
+      this.app.getRootNav().setRoot(MainMenuPage);
+      },
+      error => console.log(error)
+    );
 
   }
 

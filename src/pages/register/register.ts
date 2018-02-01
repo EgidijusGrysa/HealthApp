@@ -21,13 +21,15 @@ export class RegisterPage implements OnInit {
 
   onSubmit(){
     const user = new User(
-      this.regForm.value.name,
       this.regForm.value.email,
       this.regForm.value.password,
+      this.regForm.value.name,
       this.regForm.value.height,
       this.regForm.value.weight,
       this.regForm.value.age,
-      this.regForm.value.disFood,
+     
+      
+      this.regForm.value.favFood,
       this.regForm.value.disFood);
 
       this.regService.registerUser(user)
