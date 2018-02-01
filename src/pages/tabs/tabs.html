@@ -1,11 +1,8 @@
-<ion-tabs>
-  <ion-tab [root]="loginPage" tabTitle="Login" tabIcon="star"></ion-tab>
-  <ion-tab [root]="regPage" tabTitle="Register"></ion-tab>
-</ion-tabs>
-<ion-content>
-  <ion-tabs>
-    <ion-tab [root]="loginPage" tabTitle="Login" tabIcon="star"></ion-tab>
+
+  <ion-tabs tabsHighlight="true" tabsLayout="icon-bottom" 
+  class="tabs-striped">
+    <ion-tab class="tabs-item" [root]="loginPage" tabTitle="Login" ></ion-tab>
     <ion-tab [root]="regPage" tabTitle="Register"></ion-tab>
   </ion-tabs>
-</ion-content>
+
 
