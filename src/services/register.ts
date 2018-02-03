@@ -31,6 +31,9 @@ export class RegisterService{
        .catch((error: Response) => Observable.throw(error.json()));
     }
 
+    logout(){
+        localStorage.clear();
+    }
     getUser(){
         return this.http.get('http://localhost:8080/healthapp/users')
         .map((response: Response) => {
