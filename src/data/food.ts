@@ -17,9 +17,9 @@ export class Food implements IFood {
     name: string;
     nutrients: Nutrients[];
 
-    constructor(obj?: any) {
-        this.id = obj.ndbno || '';
-        this.name = obj.name || '';
-        this.nutrients = obj.nutrients || [];
+    constructor(id?: string, name?:string, nutrient?:any) {
+        this.id = id || '';
+        this.name = name || '';
+        this.nutrients = nutrient || [];
     }
 }
