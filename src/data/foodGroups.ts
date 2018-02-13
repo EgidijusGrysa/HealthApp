@@ -22,17 +22,17 @@ export class FoodGroups{
             new Food("11529","tomatoe"),
             new Food(" 11205","Cucumber")];
         this.breakfast.fruit = [
-            new Food("","apple"),
-            new Food("","banana")];
+            new Food(" 09003","apple"),
+            new Food(" 09040","banana")];
         this.breakfast.protein =[
-            new Food("","egg")];
+            new Food(" 01129","Boiled egg")];
         this.breakfast.dairy = [
-            new Food("","greek yogurt")];
+            new Food(" 01287","Low fat Greek yogurt")];
         this.breakfast.drink = [
-            new Food("","orange juice"),
-        new Food("","grapefruit juice")];
+            new Food(" 09206","orange juice"),
+        new Food(" 09404","grapefruit juice")];
         this.breakfast.carbs = [
-            new Food("","wholegrain bread"),
+            new Food(" 28397","Slice of Wholegrain Bread"),
             new Food("","wholegrain oats")];
     }
 }
