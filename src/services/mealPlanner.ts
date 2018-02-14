@@ -1,21 +1,29 @@
 import { Injectable } from "@angular/core";
 import { Meal, MealContent } from "../data/meal";
+import { FoodGroups } from "../data/foodGroups";
+import { Food } from "../data/food";
 
 @Injectable()
 export class MealPlannerService{
-    breakfast: Meal[];
-    m : MealContent;
+    foodGroup: FoodGroups;
+    breakfast: Meal;
+        m : MealContent;
     constructor(){
-        this.populateBreakfast();
+        this.populateBreakfast(this.foodGroup.breakfast);
     }
 
-    populateBreakfast(){
+    populateBreakfast(obj: any){
+        const ran = Math.random;
+        if(ran == 0){
+
+        }
         
-        // this.breakfast = [new Meal("meal 1", 
-        // new MealContent("orange juice",null,200),
-        // new MealContent[1]("tomatoe",1,null,
-        // new MealContent("cucumber",null,100)),
-        // new MealContent("banana",1,null))];
+    }
+
+    randomFood(foods: Food[]){
+        const noOfFoods = foods.length;
+        const ran = Math.floor(Math.random() * Math.floor(noOfFoods));
+        return foods[ran];      
     }
 
 }
