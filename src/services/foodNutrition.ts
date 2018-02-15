@@ -3,12 +3,13 @@ import { Observable } from "rxjs/Observable";
 import { FoodSearch } from "../data/foodSearch";
 import { Response } from "@angular/http/src/static_response";
 import { Injectable } from "@angular/core";
+import { MealPlannerService } from "./mealPlanner";
 
 @Injectable()
 export class FoodNutritionService {
     apiKey: string;
 
-    constructor(private http: Http){
+    constructor(private http: Http, private mealPlanner: MealPlannerService){
         this.apiKey = 'OuE6Vc7B5eD46QM5Xb1w0Iyb9859WFBEAQYw0NuD';
     }
 

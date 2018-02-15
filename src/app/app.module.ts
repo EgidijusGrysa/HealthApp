@@ -17,6 +17,7 @@ import { LoginPage } from '../pages/login/login';
 import { TabsPage } from '../pages/tabs/tabs';
 import { MainMenuTabsPage } from '../pages/main-menu-tabs/main-menu-tabs';
 import { NutritionPage } from '../pages/nutrition/nutrition';
+import { MealPlannerService } from '../services/mealPlanner';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { NutritionPage } from '../pages/nutrition/nutrition';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RegisterService,
-    FoodNutritionService
+    FoodNutritionService,
+    MealPlannerService
   ]
 })
 export class AppModule {}

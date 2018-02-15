@@ -1,43 +1,15 @@
-export interface IMeal {
+import { Food } from "./food";
+
+export class Meal{
     name: string;
-    drink: MealContent;
-    veg: MealContent[];
-    fruit: MealContent;
-    carbs: MealContent;
-    protein: MealContent;
-    fat: MealContent;
+    drink: Food;
+    veg: Food;
+    fruit: Food;
+    carbs: Food;
+    protein: Food;
+    fat: Food;
 
-}
-
-export interface IMealContent{
-    name: string;
-    quantity: number;
-    grams: number;
-    
-}
-export class MealContent implements IMealContent{
-    name: string;
-    quantity: number;
-    grams: number;
-
-    constructor(name: string,quantity?:number, grams?:number){
-        this.name = name;
-        this.quantity = quantity;
-        this.grams = grams;
-    }
-} 
-
-export class Meal implements IMeal{
-    name: string;
-    drink: MealContent;
-    veg: MealContent[];
-    fruit: MealContent;
-    carbs: MealContent;
-    protein: MealContent;
-    fat: MealContent;
-
-   constructor(name?: string, drink?: MealContent,veg?: MealContent[]
-    ,fruit?: MealContent,carbs?: MealContent,protein?: MealContent,fat?:MealContent){
+   constructor(name?: string, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food,fat?:Food){
         this.name = name;
         this.drink=drink;
         this.veg=veg;
