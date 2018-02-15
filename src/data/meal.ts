@@ -2,6 +2,7 @@ import { Food } from "./food";
 
 export class Meal{
     name: string;
+    callories: number;
     drink: Food;
     veg: Food;
     fruit: Food;
@@ -9,8 +10,9 @@ export class Meal{
     protein: Food;
     fat: Food;
 
-   constructor(name?: string, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food,fat?:Food){
+   constructor(name?: string,callories?: number, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food,fat?:Food){
         this.name = name;
+        this.callories = callories;
         this.drink=drink;
         this.veg=veg;
         this.fruit=fruit;

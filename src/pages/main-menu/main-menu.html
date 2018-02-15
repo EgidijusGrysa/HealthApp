@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-  <h1 text-center>Calories: 500/1500</h1>
+  <h1 text-center>Calories: {{currCalories}}/1500</h1>
   <ion-card>
       <ion-card-header>
           <h1>Breakfast</h1>
@@ -16,12 +16,8 @@
   <ion-grid>
       <ion-row>
         <ion-col>
-            
-             <ion-card-content>
-               <h2>1.Eggs</h2>
-               <h2>1.Eggs</h2>
-               <h2>1.Eggs</h2>
-               <h2>1.Eggs</h2>
+             <ion-card-content *ngFor="let meal of breakfastMeal; let i=index">
+               <h2>{{i+1}}.{{meal}}</h2>
              </ion-card-content>
         </ion-col>
       </ion-row>

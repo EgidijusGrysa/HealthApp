@@ -10,14 +10,20 @@ import { MealPlannerService } from '../../services/mealPlanner';
   templateUrl: 'main-menu.html',
 })
 export class MainMenuPage {
-  
+  currCalories : number;
+  breakfastMeal: string[];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public mealPlanner: MealPlannerService) {
-    
+      this.currCalories = 0;
+      this.breakfastMeal = [""];
   }
 
   acceptFood(){
-      console.log(this.mealPlanner.breakfast);
+      this.mealPlanner.calcCalories(this.mealPlanner.breakfast);
+      this.currCalories = this.mealPlanner.breakfast.callories;
+      this.breakfastMeal = this.mealPlanner.mealPlanToString(this.mealPlanner.breakfast);
+      console.log(this.breakfastMeal);
+
   }
 
 }

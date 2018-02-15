@@ -22,18 +22,18 @@ export class FoodGroups{
     iniBreakfast(){
         this.breakfast = {
             veg: [
-                new Food(11529,"tomatoe"),
-                new Food(11205,"Cucumber")],
+                new Food("11529","tomatoe"),
+                new Food("11205","Cucumber")],
             fruit: [
-                new Food(09003,"apple"),
-                new Food(09040,"banana")],
+                new Food("09003","apple"),
+                new Food("09040","banana")],
             protein:[
-                new Food(0o1129,"Boiled egg"),
-                new Food(45067633,"wholegrain oats")],
+                new Food("01129","Boiled egg"),
+                new Food("45067633","wholegrain oats")],
             drink: [
-                new Food(9206,"orange juice"),],
+                new Food("09206","orange juice"),],
             carbs:[
-                new Food(28397,"Slice of Wholegrain Bread"),
+                new Food("28397","Slice of Wholegrain Bread"),
                 ]
         }; 
     }
