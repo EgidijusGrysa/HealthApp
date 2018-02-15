@@ -40,9 +40,9 @@ m : String[];
 }
 
   getFood(){
-    this.food.searchFood().subscribe((food: FoodSearch[])=>{
-      console.log(food);
-    })
+    // this.food.searchFood().subscribe((food: FoodSearch[])=>{
+    //   console.log(food);
+    // })
   }
   getUser(){
    

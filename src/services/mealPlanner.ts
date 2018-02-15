@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Meal, MealContent } from "../data/meal";
+import { Meal } from "../data/meal";
 import { FoodGroups } from "../data/foodGroups";
 import { Food } from "../data/food";
+import { FoodNutritionService } from "../services/foodNutrition";
+import { FoodSearch } from "../data/foodSearch";
 
 @Injectable()
 export class MealPlannerService{
@@ -12,7 +14,7 @@ export class MealPlannerService{
     eveSnack: Meal;
 
     
-    constructor(){
+    constructor(private getNut: FoodNutritionService){
         this.foodGroup = new FoodGroups();
         this.breakfast = new Meal();
         this.populateBreakfast();
@@ -21,6 +23,9 @@ export class MealPlannerService{
 
     populateBreakfast(){
         const ran = this.randomNum(2);
+        // this.getNut.searchFood2("butter").subscribe((food: FoodSearch)=>{
+        //     console.log(food);
+        //   })
         this.breakfast.protein = this.randomFood(this.foodGroup.breakfast.protein);
         if(this.breakfast.protein.name.includes("egg")){
             this.breakfast.name = "Scrambled or boiled eggs"
@@ -28,13 +33,21 @@ export class MealPlannerService{
             this.breakfast.drink = this.randomFood(this.foodGroup.breakfast.drink);
             this.breakfast.veg = this.randomFood(this.foodGroup.breakfast.veg);
             this.breakfast.fruit = this.randomFood(this.foodGroup.breakfast.fruit);
-        } 
+            
+            this.getNut.searchFood(this.breakfast.protein.id).subscribe((food: any)=>{
+                console.log(food);
+        })
+    } 
         else if(this.breakfast.protein.name.includes("oats")){
             this.breakfast.name = "Porridge";
             this.breakfast.fruit = this.randomFood(this.foodGroup.breakfast.fruit);
             this.breakfast.drink = this.randomFood(this.foodGroup.breakfast.drink);
+            // this.getNut.searchFood(this.breakfast.protein.id).subscribe((food: any)=>{
+            //     console.log(food);
+        //})
         }
-    }
+    
+}
 
     
 

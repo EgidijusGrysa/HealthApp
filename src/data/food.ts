@@ -7,7 +7,7 @@ export interface Nutrients {
 }
 
 export interface IFood {
-    id: string;
+    id: number;
     name: string;
     quantity: number;
     grams: number;
@@ -15,14 +15,14 @@ export interface IFood {
 }
 
 export class Food implements IFood {
-    id: string;
+    id: number;
     name: string;
     quantity: number;
     grams: number;
     nutrients: Nutrients[];
 
-    constructor(id?: string, name?:string,quantity?: number,grams?: number, nutrient?:any) {
-        this.id = id || '';
+    constructor(id?: number, name?:string,quantity?: number,grams?: number, nutrient?:any) {
+        this.id = id || null;
         this.name = name || '';
         this.quantity = quantity || 0;
         this.grams= grams || 0;
