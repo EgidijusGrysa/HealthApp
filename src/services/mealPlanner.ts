@@ -34,34 +34,42 @@ export class MealPlannerService{
 populateBreakfast(food: Food)
 {
     if(food.name.includes("egg")){
-        this.breakfast.name = "Scrambled or boiled eggs"
+        this.breakfast.name = "Scrambled or boiled eggs";
+        this.breakfast.protein.grams = 75;
         this.randomFood(this.foodGroup.breakfast.carbs)
-        .subscribe(data => 
-            this.breakfast.carbs = data
-        );
+        .subscribe(data => {
+            this.breakfast.carbs = data;
+            this.breakfast.carbs.grams = 40;
+        });
         this.randomFood(this.foodGroup.breakfast.drink)
-        .subscribe(data => 
-            this.breakfast.drink = data
-        );
+        .subscribe(data => {
+            this.breakfast.drink = data;
+            this.breakfast.drink.grams = 200;
+        });
         this.randomFood(this.foodGroup.breakfast.veg)
-        .subscribe(data => 
-            this.breakfast.veg = data
-        );
+        .subscribe(data => {
+            this.breakfast.veg = data;
+            this.breakfast.veg.grams = 80;
+        });
         this.randomFood(this.foodGroup.breakfast.fruit)
-        .subscribe(data => 
-            this.breakfast.fruit = data
-        );
+        .subscribe(data => {
+            this.breakfast.fruit = data;
+            this.breakfast.fruit.quantity = 1;
+        });
     }
     else if(food.name.includes("oats")){
         this.breakfast.name = "Porridge";
+        this.breakfast.protein.grams = 40;
         this.randomFood(this.foodGroup.breakfast.fruit)
-        .subscribe(data => 
-            this.breakfast.fruit = data
-        );
+        .subscribe(data => {
+            this.breakfast.fruit = data;
+            this.breakfast.fruit.quantity = 1;
+        });
         this.randomFood(this.foodGroup.breakfast.drink)
-        .subscribe(data => 
-            this.breakfast.drink = data
-        );
+        .subscribe(data => {
+            this.breakfast.drink = data;
+            this.breakfast.drink.grams = 200;
+        });
         
     }
 }
@@ -84,17 +92,25 @@ populateBreakfast(food: Food)
             meal.fruit,
             meal.protein,
             meal.veg];
-
+        console.log(food);
         food.forEach(item=>{
-            let nutrients = item.nutrients;
-            nutrients.forEach(item=>{
-                if(item.nutrient_id ==="208"){
-                    console.log(item.value);
-                    totalCal = totalCal + parseInt(item.value);
+            if(item != undefined){
+                let grams = item.grams;
+                
+                
+                    let nutrients = item.nutrients;
+                    nutrients.forEach(item=>{
+                        if(item.nutrient_id ==="208"){
+                            let cals = (item.value /100) * grams;
+                            console.log(cals);
+                            totalCal = totalCal + cals;
+                        }
+                    });
                 }
-            });
+            
         });
-        this.breakfast.callories = totalCal;       
+        this.breakfast.callories = totalCal;
+        console.log(this.breakfast)       
         console.log(totalCal);
     }
 

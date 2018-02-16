@@ -25,8 +25,8 @@ export class FoodGroups{
                 new Food("11529","tomatoe"),
                 new Food("11205","Cucumber")],
             fruit: [
-                new Food("09003","apple"),
-                new Food("09040","banana")],
+                new Food("09003","apple",0,151),
+                new Food("09040","banana",0,179)],
             protein:[
                 new Food("01129","Boiled egg"),
                 new Food("45067633","wholegrain oats")],
