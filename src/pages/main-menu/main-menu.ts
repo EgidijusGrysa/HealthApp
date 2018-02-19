@@ -21,7 +21,7 @@ export class MainMenuPage {
   acceptFood(){
       this.mealPlanner.calcCalories(this.mealPlanner.breakfast);
       this.currCalories = this.mealPlanner.breakfast.callories;
-      this.breakfastMeal = this.mealPlanner.mealPlanToString(this.mealPlanner.breakfast);
+      this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
       console.log(this.breakfastMeal);
 
   }
