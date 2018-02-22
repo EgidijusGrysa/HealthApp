@@ -93,8 +93,8 @@ export class FoodGroups{
             ],
             veg: [
                 new Food("11091","Brocolli, boiled or steamed",0,100),
-                new Food("11125","Carrots, boiled or steamed",0,100),
-                new Food("Cabbage","Cabbaged, boiled",0,150)
+                new Food("11125","Carrots, boiled or steamed",0,100)
+                //new Food("Cabbage","Cabbaged, boiled",0,150)
             ],
             drink: [
                 new Food("09206","Orange juice, unsweetened",0,200),

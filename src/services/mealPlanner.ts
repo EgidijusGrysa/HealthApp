@@ -6,6 +6,7 @@ import { FoodNutritionService } from "../services/foodNutrition";
 import { FoodSearch } from "../data/foodSearch";
 import { Observable } from "rxjs/Observable";
 import { race } from "rxjs/operator/race";
+import { concat } from "rxjs/operators/concat";
 
 enum TypeOfMeal {
     Breakfast,
@@ -30,11 +31,14 @@ export class MealPlannerService{
         this.foodGroup = new FoodGroups();
         this.breakfast = new Meal();
         this.lunch = new Meal();
+        this.dinner = new Meal();
+        this.eveSnack = new Meal();
         this.populateBreakfast();
         this.populateLunch();
+        this.populateDiner();
+        this.populateEveSnack();
         this.pullAllNutrients();
-        console.log(this.breakfast);
-        console.log(this.lunch);
+        
         
     }
     
@@ -57,8 +61,7 @@ populateBreakfast()
         this.breakfast.fruit=this.randomFood(this.foodGroup.breakfast.fruit)
         this.breakfast.drink=this.randomFood(this.foodGroup.breakfast.drink)        
     }
-    // this.getNutritionValues(TypeOfMeal.Breakfast,this.breakfast);
-    // this.breakfast.callories = this.calcCalories(this.lunch);
+    
 }
     populateLunch(){
         this.lunch.protein = this.randomFood(this.foodGroup.lunch.protein);
@@ -74,17 +77,42 @@ populateBreakfast()
             this.lunch.veg = this.randomFood(this.foodGroup.lunch.veg);
         }else if(this.lunch.protein.name.includes("nuts")){
             this.lunch.fruit = this.randomFood(this.foodGroup.lunch.fruit);
-        }
-
-        // this.getNutritionValues(TypeOfMeal.Lunch,this.lunch);
-        // this.lunch.callories = this.calcCalories(this.lunch);
-        
+        }         
     }
+    populateDiner(){
+        this.dinner.protein = this.randomFood(this.foodGroup.dinner.protein);
+        this.dinner.carbs = this.randomFood(this.foodGroup.dinner.carbs);
+        this.dinner.veg = this.randomFood(this.foodGroup.dinner.veg);
+        this.dinner.drink = this.randomFood(this.foodGroup.dinner.drink);
 
+    }
+    populateEveSnack(){
+        this.eveSnack.protein = this.randomFood(this.foodGroup.eveSnack.protein);
+        
+        // if(this.eveSnack.protein.name === this.lunch.protein.name){
+        //     this.populateEveSnack();
+        //     return;
+        // }
+
+        if(this.eveSnack.protein.name.includes("Greek")){
+            this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
+            this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
+        }else if(this.eveSnack.protein.name.includes("Cottage")){
+            this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
+        }else if(this.eveSnack.protein.name.includes("ham")){
+            this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
+            this.eveSnack.carbs = this.randomFood(this.foodGroup.eveSnack.carbs);
+            this.eveSnack.veg = this.randomFood(this.foodGroup.eveSnack.veg);
+        }else if(this.eveSnack.protein.name.includes("nuts")){
+            this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
+        }      
+    }
     pullAllNutrients(){
         let allMeals: Meal[] = [
             this.breakfast,
             this.lunch,
+            this.dinner,
+            this.eveSnack
         ];
         let ids: string[] = [];
         allMeals.forEach(meal=>{
@@ -94,7 +122,7 @@ populateBreakfast()
         });
         console.log("Nutrient IDS"+ids);
         return this.getNut.searchManyFood(ids).subscribe(nutrients=>{
-            //this.populateNutrition(nutrients.foods);
+            this.populateNutrition(nutrients.foods);
             console.log(nutrients.foods);
         });
     }
@@ -123,7 +151,7 @@ populateBreakfast()
             meal.fruit,
             meal.protein,
             meal.veg];
-        console.log(food);
+        //console.log(food);
         food.forEach(item=>{
             if(item != undefined){
                 let grams = item.grams;
@@ -142,31 +170,18 @@ populateBreakfast()
         return Math.round(totalCal);
     }
 
-    // getNutritionValues(mealType: TypeOfMeal,meal: Meal){
-        
-    //     return this.getNut.searchManyFood(id).subscribe(nutrients=>{
-    //         this.populateNutrition(nutrients.foods);
-    //         //console.log(nutrients.foods);
-    //     });
-    // }
-
     populateNutrition(nutrients: any[]){
-        var meal;
-        // switch(mealType){
-        //     case TypeOfMeal.Breakfast:
-        //     meal = this.breakfast;
-        //     break;
-        //     case TypeOfMeal.Lunch:
-        //     meal = this.lunch;
-        //     break;
-        //     case TypeOfMeal.Dinner:
-        //     meal = this.dinner;
-        //     break;
-        //     case TypeOfMeal.EveningSnack:
-        //     meal = this.eveSnack;
-        //     break;
-        // }
         
+        this.breakfast = this.getNutrientsForEachFood(this.breakfast,nutrients);
+        this.lunch = this.getNutrientsForEachFood(this.lunch,nutrients);
+        this.dinner = this.getNutrientsForEachFood(this.dinner,nutrients);
+        this.eveSnack = this.getNutrientsForEachFood(this.eveSnack,nutrients);
+    
+    }
+
+    getNutrientsForEachFood(m: Meal, nutrients: any[]){
+        //console.log(m);
+        let meal = m;
         if(meal.carbs != undefined){
             meal.carbs.nutrients = this.getFoodNutrient(meal.carbs.id,nutrients);
         }
@@ -183,27 +198,14 @@ populateBreakfast()
             meal.veg.nutrients= this.getFoodNutrient(meal.veg.id,nutrients);
         }
 
-        // switch(mealType){
-        //     case TypeOfMeal.Breakfast:
-        //     this.breakfast=meal;
-        //     break;
-        //     case TypeOfMeal.Lunch:
-        //     this.lunch=meal;
-        //     break;
-        //     case TypeOfMeal.Dinner:
-        //     this.dinner =meal;
-        //     break;
-        //     case TypeOfMeal.EveningSnack:
-        //     this.eveSnack=meal;
-        //     break;
-        // }
-        
+        return meal;
     }
 
     //*****====Returns nutrient from arrray based on the string passed in******/
     getFoodNutrient(id: string, nutrient: any[]){
-        let x = nutrient.find(y=>
+        let x = nutrient.find(y=> 
             y.food.desc.ndbno == id
+            
         );
         return x.food.nutrients;
     }

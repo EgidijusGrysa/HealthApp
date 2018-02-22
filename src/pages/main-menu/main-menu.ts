@@ -14,6 +14,8 @@ export class MainMenuPage {
   currCalories : number;
   breakfastMeal: string[];
   lunchMeal: string[];
+  dinnerMeal: string[];
+  eveMeal: string[];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public mealPlanner: MealPlannerService) {
       this.currCalories = 0;
@@ -25,11 +27,18 @@ export class MainMenuPage {
       
       this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.breakfast);
       this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.lunch);
-      console.log(this.currCalories);
+      this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.dinner);
+       this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.eveSnack);
+      console.log(this.mealPlanner.calcCalories(this.mealPlanner.breakfast));
+      console.log(this.mealPlanner.calcCalories(this.mealPlanner.lunch));
+      
       this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
       this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
-      console.log(this.breakfastMeal);
-      console.log(this.lunchMeal);
+       this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
+     this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
+      
+      
+      
 
   }
 
