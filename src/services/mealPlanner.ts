@@ -7,6 +7,7 @@ import { FoodSearch } from "../data/foodSearch";
 import { Observable } from "rxjs/Observable";
 import { race } from "rxjs/operator/race";
 import { concat } from "rxjs/operators/concat";
+import { LoadingController } from "ionic-angular/components/loading/loading-controller";
 
 enum TypeOfMeal {
     Breakfast,
@@ -17,7 +18,7 @@ enum TypeOfMeal {
 
 @Injectable()
 export class MealPlannerService{
-    
+    totalCalories: number;
     foodGroup:FoodGroups;
     breakfast: Meal;
     lunch: Meal;
@@ -25,7 +26,7 @@ export class MealPlannerService{
     eveSnack: Meal;
     
     
-    constructor(private getNut: FoodNutritionService){
+    constructor(private getNut: FoodNutritionService,private loadingCntrl: LoadingController){
         
         let x = TypeOfMeal;
         this.foodGroup = new FoodGroups();
@@ -36,9 +37,7 @@ export class MealPlannerService{
         this.populateBreakfast();
         this.populateLunch();
         this.populateDiner();
-        this.populateEveSnack();
-        this.pullAllNutrients();
-        
+        this.populateEveSnack();    
         
     }
     
@@ -107,26 +106,7 @@ populateBreakfast()
             this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
         }      
     }
-    pullAllNutrients(){
-        let allMeals: Meal[] = [
-            this.breakfast,
-            this.lunch,
-            this.dinner,
-            this.eveSnack
-        ];
-        let ids: string[] = [];
-        allMeals.forEach(meal=>{
-            
-            let id = this.mealPlanToString(true,meal);
-            ids = ids.concat(id);
-        });
-        console.log("Nutrient IDS"+ids);
-        return this.getNut.searchManyFood(ids).subscribe(nutrients=>{
-            this.populateNutrition(nutrients.foods);
-            console.log(nutrients.foods);
-        });
-    }
-
+    
     mealPlanToString(returnIDs: boolean,meal: Meal){
         let stringMeal: string[]=[];
         if(returnIDs){

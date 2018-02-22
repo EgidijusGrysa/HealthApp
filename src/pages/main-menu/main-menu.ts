@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MealPlannerService } from '../../services/mealPlanner';
 import { Meal } from '../../data/meal';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { FoodNutritionService } from '../../services/foodNutrition';
 
 
 
@@ -11,35 +13,62 @@ import { Meal } from '../../data/meal';
   templateUrl: 'main-menu.html',
 })
 export class MainMenuPage {
-  currCalories : number;
+  totalCalories : number;
   breakfastMeal: string[];
   lunchMeal: string[];
   dinnerMeal: string[];
   eveMeal: string[];
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public mealPlanner: MealPlannerService) {
-      this.currCalories = 0;
+    public mealPlanner: MealPlannerService,
+    private loadingCtrl: LoadingController,
+    private foodNutrition: FoodNutritionService) {
+      this.totalCalories = 0;
       this.breakfastMeal = [""];
       this.acceptFood();
   }
 
   acceptFood(){
       
-      this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.breakfast);
-      this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.lunch);
-      this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.dinner);
-       this.currCalories += this.mealPlanner.calcCalories(this.mealPlanner.eveSnack);
-      console.log(this.mealPlanner.calcCalories(this.mealPlanner.breakfast));
-      console.log(this.mealPlanner.calcCalories(this.mealPlanner.lunch));
+    const loading = this.loadingCtrl.create({
+        content: 'Creating Meals....'
+      });
+  loading.present();
+  
+  let allMeals: Meal[] = [
+      this.mealPlanner.breakfast,
+      this.mealPlanner.lunch,
+      this.mealPlanner.dinner,
+      this.mealPlanner.eveSnack
+  ];
+  //console.log(allMeals);
+  let ids: string[] = [];
+  allMeals.forEach(meal=>{
       
+      let id = this.mealPlanner.mealPlanToString(true,meal);
+      ids = ids.concat(id);
+  });
+  //console.log("Nutrient IDS"+ids);
+  return this.foodNutrition.searchManyFood(ids).subscribe(nutrients=>{
+      this.mealPlanner.populateNutrition(nutrients.foods);
+      console.log(nutrients.foods);
+  },
+  err => {
+      console.log("Error has occured!! "+err);
+      loading.dismiss();
+  },
+  ()=>{
+      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.breakfast);
+      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.lunch);
+      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.dinner);
+      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.eveSnack);
+
       this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
       this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
-       this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
-     this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
-      
-      
-      
+      this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
+      this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
 
+      loading.dismiss();
+  });
   }
-
 }
