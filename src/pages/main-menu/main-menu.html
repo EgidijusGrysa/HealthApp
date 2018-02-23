@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-  <h1 text-center>Calories: {{currCalories}}/1500</h1>
+  <h1 text-center>Calories: {{totalCalories}}/1500</h1>
   <ion-card>
       <ion-card-header>
           <h1>Breakfast</h1>
@@ -29,7 +29,7 @@
             </button>
         </ion-col>
         <ion-col>
-          <button ion-button large color="danger">
+          <button ion-button large color="danger" (click)="changeMeal('b')">
             <ion-icon name="md-close"></ion-icon>
           </button>
         </ion-col>

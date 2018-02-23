@@ -27,14 +27,39 @@ export class MainMenuPage {
       this.breakfastMeal = [""];
       this.acceptFood();
   }
+  changeMeal(m: string){
+      switch(m){
+          case "b":
+          this.mealPlanner.breakfast = new Meal();
+          this.mealPlanner.populateBreakfast();
+          const loading = this.loadingCtrl.create({
+            content: 'Creating Meals....'
+          });
+            loading.present();
+            let ids = this.mealPlanner.mealPlanToString(true,this.mealPlanner.breakfast);
+            return this.foodNutrition.searchManyFood(ids).subscribe(item =>{
+               this.mealPlanner.breakfast = this.mealPlanner.getNutrientsForEachFood(this.mealPlanner.breakfast,item.foods);
+            },
+        err=>{
+            console.log(err);
+            loading.dismiss();
+        },
+    ()=>{
+        this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
+        loading.dismiss();
+        
+    });
+    case "l":
+
+          
+      }
+  }
 
   acceptFood(){
-      
     const loading = this.loadingCtrl.create({
         content: 'Creating Meals....'
       });
   loading.present();
-  
   let allMeals: Meal[] = [
       this.mealPlanner.breakfast,
       this.mealPlanner.lunch,
@@ -62,6 +87,7 @@ export class MainMenuPage {
       this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.lunch);
       this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.dinner);
       this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.eveSnack);
+      console.log(this.totalCalories);
 
       this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
       this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
