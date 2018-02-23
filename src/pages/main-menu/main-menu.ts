@@ -28,15 +28,18 @@ export class MainMenuPage {
       this.acceptFood();
   }
   changeMeal(m: string){
+    
+    const loading = this.loadingCtrl.create({
+      content: 'Updating new meal...'
+    });
+    
       switch(m){
           case "b":
           this.mealPlanner.breakfast = new Meal();
           this.mealPlanner.populateBreakfast();
-          const loading = this.loadingCtrl.create({
-            content: 'Creating Meals....'
-          });
             loading.present();
             let ids = this.mealPlanner.mealPlanToString(true,this.mealPlanner.breakfast);
+            
             return this.foodNutrition.searchManyFood(ids).subscribe(item =>{
                this.mealPlanner.breakfast = this.mealPlanner.getNutrientsForEachFood(this.mealPlanner.breakfast,item.foods);
             },
@@ -49,8 +52,61 @@ export class MainMenuPage {
         loading.dismiss();
         
     });
-    case "l":
 
+    case "l":
+    loading.present();
+    this.mealPlanner.lunch = new Meal();
+    this.mealPlanner.populateLunch();
+    
+      ids = this.mealPlanner.mealPlanToString(true,this.mealPlanner.lunch);
+      return this.foodNutrition.searchManyFood(ids).subscribe(item =>{
+         this.mealPlanner.lunch = this.mealPlanner.getNutrientsForEachFood(this.mealPlanner.lunch,item.foods);
+      },
+  err=>{
+      console.log(err);
+      loading.dismiss();
+  },
+()=>{
+  this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
+  loading.dismiss();
+  
+});
+    case "d":
+    loading.present();
+    this.mealPlanner.dinner = new Meal();
+    this.mealPlanner.populateDiner();
+    
+      ids = this.mealPlanner.mealPlanToString(true,this.mealPlanner.dinner);
+      return this.foodNutrition.searchManyFood(ids).subscribe(item =>{
+         this.mealPlanner.dinner = this.mealPlanner.getNutrientsForEachFood(this.mealPlanner.dinner,item.foods);
+      },
+  err=>{
+      console.log(err);
+      loading.dismiss();
+  },
+()=>{
+  this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
+  loading.dismiss();
+  
+});
+    case "e":
+    loading.present();
+    this.mealPlanner.eveSnack = new Meal();
+    this.mealPlanner.populateEveSnack();
+    
+      ids = this.mealPlanner.mealPlanToString(true,this.mealPlanner.eveSnack);
+      return this.foodNutrition.searchManyFood(ids).subscribe(item =>{
+         this.mealPlanner.eveSnack = this.mealPlanner.getNutrientsForEachFood(this.mealPlanner.eveSnack,item.foods);
+      },
+  err=>{
+      console.log(err);
+      loading.dismiss();
+  },
+()=>{
+  this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
+  loading.dismiss();
+  
+});    
           
       }
   }
