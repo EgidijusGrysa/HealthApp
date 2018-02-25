@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { MainMenuPage } from '../pages/main-menu/main-menu';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { MainMenuTabsPage } from '../pages/main-menu-tabs/main-menu-tabs';
+import { RegisterPage } from '../pages/register/register';
 @Component({
   templateUrl: 'app.html'
 })
@@ -19,7 +20,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, 
     splashScreen: SplashScreen
    ) {
-     this.tabsPage = MainMenuTabsPage;
+     this.tabsPage = RegisterPage;
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

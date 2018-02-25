@@ -9,20 +9,28 @@
 
 <ion-content padding>
     <ion-item>
-        <button ion-button>Use Voice</button>
+        <ion-label>Voice Input</ion-label>
+        <ion-toggle [(ngModel)]="voiceActive"></ion-toggle>
       </ion-item>
   <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
     <ion-list>
       
-      <ion-item>
-        <ion-input id="name" 
+      <ion-item >
+        <ion-input
+          disabled="{{voiceActive}}"
+          value="{{name}}"
+          (click)="startVoiceInput('name')"
+          id="name" 
           placeholder="Your First Name" 
           type="text"
           formControlName="name">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-input id="password" 
+        <ion-input 
+        value="{{pass}}"
+        (click)="startVoiceInput('pass')"
+        id="password" 
           placeholder="Your Password" 
           type="password"
           formControlName="password">
@@ -30,6 +38,8 @@
       </ion-item>
       <ion-item>
         <ion-input 
+        value="{{email}}"
+        (click)="startVoiceInput('email')"
           formControlName="email" 
           id="email" type="email" 
           placeholder="Your Email">
@@ -37,22 +47,28 @@
       </ion-item>
       <ion-item>
           <ion-input 
+          value="{{age}}"
+          (click)="startVoiceInput('age')"
             formControlName="age" 
             id="age" type="number"
             placeholder="Your Age">
           </ion-input>
       </ion-item>
         <ion-item>
-            <ion-input formControlName="weight" id="weight" type="number" placeholder="Your Weight"></ion-input>
+            <ion-input 
+            value="{{weight}}"
+            (click)="startVoiceInput('weight')"
+            formControlName="weight" 
+            id="weight" type="number"
+             placeholder="Your Weight"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input formControlName="height" id="height" type="number" placeholder="Your Height"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-input formControlName="favFood" id="favFood" type="text" placeholder="Your Favourite Foods (Minimum 3)"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-textarea formControlName="disFood" id="disFood" type="text" placeholder="Your Disliked Foods (Minimum 3)"></ion-textarea>
+            <ion-input
+            value="{{height}}"
+            (click)="startVoiceInput('height')" 
+            formControlName="height" 
+            id="height" type="number" 
+            placeholder="Your Height"></ion-input>
         </ion-item>
         <ion-item>
           <button ion-button large type="submit" [disabled]="!regForm.valid">Register</button>

@@ -18,6 +18,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { MainMenuTabsPage } from '../pages/main-menu-tabs/main-menu-tabs';
 import { NutritionPage } from '../pages/nutrition/nutrition';
 import { MealPlannerService } from '../services/mealPlanner';
+import { VoiceInputService } from '../services/voiceInput';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { MealPlannerService } from '../services/mealPlanner';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RegisterService,
     FoodNutritionService,
-    MealPlannerService
+    MealPlannerService,
+    VoiceInputService
   ]
 })
 export class AppModule {}
