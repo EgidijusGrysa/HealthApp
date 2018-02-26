@@ -26,7 +26,15 @@ export class VoiceInputService{
             });
         }
         
-    }  
+    }
+    
+    emailInput(eString: string){
+        let emailInput = eString.replace(/\s/g,"");
+        console.log(emailInput);
+        emailInput = emailInput.replace("at","@");
+        emailInput = emailInput.toLowerCase();
+        return emailInput;
+    }
 
     
 }

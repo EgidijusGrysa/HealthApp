@@ -19,7 +19,7 @@ export class RegisterPage implements OnInit {
   voiceActive: any;
   regForm: FormGroup;
   name:string;
-  pass: string;
+  pass: string
   email:string;
   age:string;
   weight:string;
@@ -32,31 +32,6 @@ export class RegisterPage implements OnInit {
     this.voiceActive = false;
   }
 
-//   showAlert(input:string){
-    
-//     let alert = this.alertCntrl.create({
-//         title: 'Is this correct?',
-//         message: `${input}`,
-//         buttons: [
-//             {
-//                 text: 'Yes!',
-//                 handler:()=>{
-                    
-//                 }
-//             },
-//             {
-//                 text: 'No!',
-//                 role:'cancel',
-//                 handler: ()=>{
-
-//                 }
-//             }
-//         ]
-
-
-//     });
-//     alert.present();
-// }
 
   startVoiceInput(typeOfInput: string){
     
@@ -64,13 +39,13 @@ export class RegisterPage implements OnInit {
       case "name":
       if(this.voiceActive){
         return this.voiceInput.startLisening().subscribe(x=>{
-            this.name = x;
+            this.regForm.patchValue({name: x});
         },
           err=>{
             console.log(err);
           },
           ()=>{
-            this.name = "got here";
+            //this.name = "got here";
             console.log("Sucessful");
           });
       }
@@ -84,7 +59,7 @@ export class RegisterPage implements OnInit {
             console.log(err);
           },
           ()=>{
-            this.name = "got here";
+            //this.name = "got here";
             console.log("Sucessful");
           });
       }
@@ -92,13 +67,13 @@ export class RegisterPage implements OnInit {
       case "email":
       if(this.voiceActive){
         return this.voiceInput.startLisening().subscribe(x=>{
-            this.email = x;
+            this.email = this.voiceInput.emailInput(x);
         },
           err=>{
             console.log(err);
           },
           ()=>{
-            this.name = "got here";
+            //this.name = "got here";
             console.log("Sucessful");
           });
       }
@@ -112,7 +87,7 @@ export class RegisterPage implements OnInit {
             console.log(err);
           },
           ()=>{
-            this.name = "got here";
+            //this.name = "got here";
             console.log("Sucessful");
           });
       }
@@ -126,7 +101,7 @@ export class RegisterPage implements OnInit {
             console.log(err);
           },
           ()=>{
-            this.name = "got here";
+            //this.name = "got here";
             console.log("Sucessful");
           });
       }
@@ -140,7 +115,7 @@ export class RegisterPage implements OnInit {
             console.log(err);
           },
           ()=>{
-            this.name = "got here";
+            //this.name = "got here";
             console.log("Sucessful");
           });
       }
@@ -163,13 +138,14 @@ export class RegisterPage implements OnInit {
       this.regService.registerUser(user)
       .subscribe(
         data => console.log(data),
-        error => console.log(error)
+        error => console.log(error),
+        ()=>console.log("moved to new page")
       );
       //this.regForm.reset();
   }
   ngOnInit(){
     this.regForm= new FormGroup({
-      name: new FormControl(null, Validators.required),
+      name: new FormControl(null,Validators.required),
       password: new FormControl(null, Validators.required),
       email: new FormControl(null, [
         Validators.required, 
