@@ -27,6 +27,55 @@ export class MainMenuPage {
       this.breakfastMeal = [""];
       this.acceptFood();
   }
+
+  postMeal(string:String){
+      switch(string){
+          case 'b':
+          this.mealPlanner.postMeal(this.mealPlanner.breakfast)
+          .subscribe(
+            data=> {
+                console.log(data);
+            },
+            err => console.log(err)
+          );
+          break;
+          case 'l':
+          this.mealPlanner.postMeal(this.mealPlanner.lunch)
+          .subscribe(
+            data=> {
+                console.log(data);
+            },
+            err => console.log(err)
+          );
+          break;
+          case 'd':
+          this.mealPlanner.postMeal(this.mealPlanner.dinner)
+          .subscribe(
+            data=> {
+                console.log(data);
+            },
+            err => console.log(err)
+          );
+          break;
+          case 'e':
+          this.mealPlanner.postMeal(this.mealPlanner.lunch)
+          .subscribe(
+            data=> {
+                console.log(data);
+            },
+            err => console.log(err)
+          );
+          break;
+      }
+      this.mealPlanner.postMeal(this.mealPlanner.eveSnack)
+      .subscribe(
+        data=> {
+            console.log(data);
+        },
+        err => console.log(err)
+      );
+  }
+
   changeMeal(m: string){
     
     const loading = this.loadingCtrl.create({

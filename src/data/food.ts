@@ -22,10 +22,10 @@ export class Food implements IFood {
     nutrients: any[];
 
     constructor(id?: string, name?:string,quantity?: number,grams?: number, nutrient?:any) {
-        this.id = id || null;
-        this.name = name || '';
+        this.id = id || "none";
+        this.name = name || 'none';
         this.quantity = quantity || 0;
         this.grams= grams || 0;
-        this.nutrients = nutrient || [''];
+        this.nutrients = nutrient || 'none';
     }
 }

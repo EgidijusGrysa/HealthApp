@@ -8,6 +8,9 @@ import { Observable } from "rxjs/Observable";
 import { race } from "rxjs/operator/race";
 import { concat } from "rxjs/operators/concat";
 import { LoadingController } from "ionic-angular/components/loading/loading-controller";
+import { Headers } from "@angular/http";
+import { Http } from "@angular/http";
+import { Response } from "@angular/http/src/static_response";
 
 enum TypeOfMeal {
     Breakfast,
@@ -26,7 +29,9 @@ export class MealPlannerService{
     eveSnack: Meal;
     
     
-    constructor(private getNut: FoodNutritionService,private loadingCntrl: LoadingController){
+    constructor(private getNut: FoodNutritionService,
+        private loadingCntrl: LoadingController,
+        private http: Http){
         
         let x = TypeOfMeal;
         this.foodGroup = new FoodGroups();
@@ -110,17 +115,17 @@ populateBreakfast()
     mealPlanToString(returnIDs: boolean,meal: Meal){
         let stringMeal: string[]=[];
         if(returnIDs){
-            if(meal.protein != undefined) stringMeal.push(meal.protein.id);
-            if(meal.carbs != undefined) stringMeal.push(meal.carbs.id);
-            if(meal.veg != undefined) stringMeal.push(meal.veg.id);
-            if(meal.fruit != undefined) stringMeal.push(meal.fruit.id);
-            if(meal.drink != undefined) stringMeal.push(meal.drink.id);
+            if(meal.protein.name != "none") stringMeal.push(meal.protein.id);
+            if(meal.carbs.name != "none") stringMeal.push(meal.carbs.id);
+            if(meal.veg.name != "none") stringMeal.push(meal.veg.id);
+            if(meal.fruit.name != "none") stringMeal.push(meal.fruit.id);
+            if(meal.drink.name != "none") stringMeal.push(meal.drink.id);
         }else{
-            if(meal.protein != undefined) stringMeal.push(meal.protein.name);
-            if(meal.carbs != undefined) stringMeal.push(meal.carbs.name);
-            if(meal.veg != undefined) stringMeal.push(meal.veg.name);
-            if(meal.fruit != undefined) stringMeal.push(meal.fruit.name);
-            if(meal.drink != undefined) stringMeal.push(meal.drink.name);
+            if(meal.protein.name != "none") stringMeal.push(meal.protein.name);
+            if(meal.carbs.name != "none") stringMeal.push(meal.carbs.name);
+            if(meal.veg.name != "none") stringMeal.push(meal.veg.name);
+            if(meal.fruit.name != "none") stringMeal.push(meal.fruit.name);
+            if(meal.drink.name != "none") stringMeal.push(meal.drink.name);
         }
         return stringMeal;
     }
@@ -133,7 +138,7 @@ populateBreakfast()
             meal.veg];
         //console.log(food);
         food.forEach(item=>{
-            if(item != undefined){
+            if(item.name != "none"){
                 let grams = item.grams;
                 let nutrients = item.nutrients;
                     nutrients.forEach(item=>{
@@ -160,21 +165,21 @@ populateBreakfast()
     }
 
     getNutrientsForEachFood(m: Meal, nutrients: any[]){
-        //console.log(m);
+        console.log(m);
         let meal = m;
-        if(meal.carbs != undefined){
+        if(meal.carbs.name != "none"){
             meal.carbs.nutrients = this.getFoodNutrient(meal.carbs.id,nutrients);
         }
-        if(meal.drink != undefined){
+        if(meal.drink.name != "none"){
             meal.drink.nutrients = this.getFoodNutrient(meal.drink.id,nutrients);
         }
-        if(meal.fruit != undefined){
+        if(meal.fruit.name != "none"){
             meal.fruit.nutrients = this.getFoodNutrient(meal.fruit.id,nutrients);
         }
-        if(meal.protein !=undefined){
+        if(meal.protein.name != "none"){
            meal.protein.nutrients= this.getFoodNutrient(meal.protein.id,nutrients);
         }
-        if(meal.veg != undefined){
+        if(meal.veg.name != "none"){
             meal.veg.nutrients= this.getFoodNutrient(meal.veg.id,nutrients);
         }
 
@@ -199,5 +204,14 @@ populateBreakfast()
     randomNum(max){
         return Math.floor(Math.random() * Math.floor(max));
     }
+    
+    postMeal(meal: Meal){
+        const body = JSON.stringify(meal);
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.http.post('http://localhost:8080/healthapp/meals', body,{headers: headers})
+        .map((response: Response) => response.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    }
+
 
 }
