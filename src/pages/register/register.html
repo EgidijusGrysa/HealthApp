@@ -16,59 +16,59 @@
     <ion-list>
       
       <ion-item >
-        <ion-input
-          
-          
+          <ion-label>Your Name</ion-label>
+        <ion-input         
           (click)="startVoiceInput('name')"
           id="name" 
-          placeholder="Your First Name" 
           type="text"
           formControlName="name">
         </ion-input>
       </ion-item>
       <ion-item>
+          <ion-label>Your Password</ion-label>
         <ion-input 
         value="{{pass}}"
         (click)="startVoiceInput('pass')"
         id="password" 
-          placeholder="Your Password" 
-          type="password"
+        type="password"
           formControlName="password">
         </ion-input>
       </ion-item>
       <ion-item>
+          <ion-label>Your Email</ion-label>
         <ion-input 
         value="{{email}}"
         (click)="startVoiceInput('email')"
           formControlName="email" 
-          id="email" type="email" 
-          placeholder="Your Email">
+          id="email" type="email" >
         </ion-input>
       </ion-item>
       <ion-item>
+          <ion-label>Your Age</ion-label>
           <ion-input 
+
           value="{{age}}"
           (click)="startVoiceInput('age')"
             formControlName="age" 
             id="age" type="number"
-            placeholder="Your Age">
+            >
           </ion-input>
       </ion-item>
         <ion-item>
+            <ion-label>Weight in Kilograms</ion-label>
             <ion-input 
             value="{{weight}}"
             (click)="startVoiceInput('weight')"
             formControlName="weight" 
-            id="weight" type="number"
-             placeholder="Your Weight"></ion-input>
+              id="weight" type="number"
+             ></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input
-            value="{{height}}"
-            (click)="startVoiceInput('height')" 
-            formControlName="height" 
-            id="height" type="number" 
-            placeholder="Your Height"></ion-input>
+          <ion-label>Gender</ion-label>
+          <ion-select formControlName="gender">
+            <ion-option value="f">Female</ion-option>
+            <ion-option value="m">Male</ion-option>
+          </ion-select>
         </ion-item>
         <ion-item>
           <button ion-button large type="submit" [disabled]="!regForm.valid">Register</button>

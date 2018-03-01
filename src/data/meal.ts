@@ -8,9 +8,9 @@ export class Meal{
     fruit: Food;
     carbs: Food;
     protein: Food;
-    fat: Food;
-
-   constructor(name?: string,callories?: number, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food,fat?:Food){
+    fat: string;
+userID
+   constructor(name?: string,callories?: number, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food,userID?:string){
        let emptyFood = new Food("none","none",0,0,"none");
         this.name = name || "none";
         this.callories = callories || 0;
@@ -19,7 +19,8 @@ export class Meal{
         this.fruit=fruit || emptyFood;
         this.carbs=carbs || emptyFood;
         this.protein= protein || emptyFood;
-        this.fat = fat || emptyFood;
+        this.userID = userID || "none";
+        
    }
      
 

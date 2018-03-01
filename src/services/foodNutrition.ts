@@ -1,6 +1,5 @@
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { FoodSearch } from "../data/foodSearch";
 import { Response } from "@angular/http/src/static_response";
 import { Injectable } from "@angular/core";
 

@@ -2,23 +2,20 @@ export class User {
     name: string;
     email: string;
     password: string;
-    height: number;
+    sex: string;
     weight: number;
     age: number;
-    favFood: string[];
-    disFood: string[];
+    callories: number
 
-    constructor(email: string,password: string,name?: string,height?:number,
-                weight?: number, age?: number, favFood?: string[],
-                disFood?: string[])
+    constructor(email: string,password: string,name?: string,sex?:string,
+                weight?: number, age?: number, calls?: number)
     {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.height = height;
+        this.sex = sex;
         this.weight = weight;
         this.age = age;
-        this.favFood = favFood;
-        this.disFood = disFood;
+        this.callories = calls;
     }
 }

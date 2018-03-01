@@ -23,7 +23,7 @@ export class RegisterPage implements OnInit {
   email:string;
   age:string;
   weight:string;
-  height:string;
+  gender:string;
 
   constructor(private keyboard:Keyboard, private alertCntrl:AlertController,
     private regService: RegisterService,
@@ -106,20 +106,7 @@ export class RegisterPage implements OnInit {
           });
       }
       break;
-      case "height":
-      if(this.voiceActive){
-        return this.voiceInput.startLisening().subscribe(x=>{
-            this.height = x;
-        },
-          err=>{
-            console.log(err);
-          },
-          ()=>{
-            //this.name = "got here";
-            console.log("Sucessful");
-          });
-      }
-      break;  
+      
     }
     
   }
@@ -127,13 +114,15 @@ export class RegisterPage implements OnInit {
 
 
   onSubmit(){
+
     const user = new User(
       this.regForm.value.email,
       this.regForm.value.password,
       this.regForm.value.name,
-      this.regForm.value.height,
+      this.regForm.value.gender,
       this.regForm.value.weight,
-      this.regForm.value.age);
+      this.regForm.value.age,
+      this.calculateCallories(this.gender,this.regForm.value.age,this.regForm.value.weight));
 
       this.regService.registerUser(user)
       .subscribe(
@@ -143,6 +132,25 @@ export class RegisterPage implements OnInit {
       );
       //this.regForm.reset();
   }
+
+  calculateCallories(gender: string,age: number, weight: number){
+    if(gender == 'f'){
+      if(age >= 60){
+        return (10.5 * weight) + 596;
+      }else if(age < 60){
+        return (8.7* weight) + 829;
+      }
+    }else{
+      if(age >= 60){
+        return (13.5 * weight) + 487;
+      }else if(age < 60){
+        return (11.6* weight) + 879;
+      }
+    }
+    
+    return null;
+  }
+
   ngOnInit(){
     this.regForm= new FormGroup({
       name: new FormControl(null,Validators.required),
@@ -152,7 +160,7 @@ export class RegisterPage implements OnInit {
         Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
       age: new FormControl(null,Validators.required),
       weight: new FormControl(null, Validators.required),
-      height: new FormControl(null, Validators.required)
+        gender: new FormControl(null, Validators.required)
     });
   }
 

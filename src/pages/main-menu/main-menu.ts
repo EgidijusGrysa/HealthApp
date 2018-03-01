@@ -18,6 +18,8 @@ export class MainMenuPage {
   lunchMeal: string[];
   dinnerMeal: string[];
   eveMeal: string[];
+  userID: string;
+  userCalls: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public mealPlanner: MealPlannerService,
@@ -26,11 +28,59 @@ export class MainMenuPage {
       this.totalCalories = 0;
       this.breakfastMeal = [""];
       this.acceptFood();
+      this.userID = localStorage.getItem("userId");
+      this.userCalls = localStorage.getItem("callories");
+  }
+
+  updateMeal(){
+    var obj = new Object({
+        userID: this.userID,
+        dayMeal: new Object({
+            date: Date.now(),
+            breakfast: this.mealPlanner.breakfast,
+            lunch: this.mealPlanner.lunch,
+            dinner: this.mealPlanner.dinner,
+            eveMeal: this.mealPlanner.eveSnack
+        })
+      });
+      this.mealPlanner.updateMeals(this.userID, obj)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        err => {
+            console.log(err);
+        }
+    )
+  }
+
+  mealPost(){
+      var obj = new Object({
+        userID: this.userID,
+        dayMeal: new Object({
+            date: Date.now(),
+            breakfast: this.mealPlanner.breakfast,
+            lunch: this.mealPlanner.lunch,
+            dinner: this.mealPlanner.dinner,
+            eveMeal: this.mealPlanner.eveSnack
+        })
+      });
+      console.log(obj);
+      this.mealPlanner.postMeal(obj)
+      .subscribe(
+          data => {
+            console.log(data);
+          },
+          err => {
+              console.log(err);
+          }
+      )
   }
 
   postMeal(string:String){
       switch(string){
           case 'b':
+          this.mealPlanner.breakfast.userID = this.userID;
           this.mealPlanner.postMeal(this.mealPlanner.breakfast)
           .subscribe(
             data=> {

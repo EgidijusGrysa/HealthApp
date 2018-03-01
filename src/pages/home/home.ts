@@ -5,7 +5,6 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { RegisterService } from '../../services/register';
 import { User } from '../../data/user';
 import { FoodNutritionService } from '../../services/foodNutrition';
-import { FoodSearch } from '../../data/foodSearch';
 
 @Component({
   selector: 'page-home',

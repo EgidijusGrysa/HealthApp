@@ -3,7 +3,6 @@ import { Meal } from "../data/meal";
 import { FoodGroups } from "../data/foodGroups";
 import { Food } from "../data/food";
 import { FoodNutritionService } from "../services/foodNutrition";
-import { FoodSearch } from "../data/foodSearch";
 import { Observable } from "rxjs/Observable";
 import { race } from "rxjs/operator/race";
 import { concat } from "rxjs/operators/concat";
@@ -205,10 +204,18 @@ populateBreakfast()
         return Math.floor(Math.random() * Math.floor(max));
     }
     
-    postMeal(meal: Meal){
-        const body = JSON.stringify(meal);
+    postMeal(userMeal: Object){
+        const body = JSON.stringify(userMeal);
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post('http://localhost:8080/healthapp/meals', body,{headers: headers})
+        .map((response: Response) => response.json())
+        .catch((err: Response) => Observable.throw(err.json()));
+    }
+
+    updateMeals(id: string,meals: Object){
+        const body = JSON.stringify(meals);
+        const headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
+        return this.http.patch('http://localhost:8080/healthapp/usermeals/'+id, body,{headers: headers})
         .map((response: Response) => response.json())
         .catch((err: Response) => Observable.throw(err.json()));
     }

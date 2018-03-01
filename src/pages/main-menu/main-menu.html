@@ -8,7 +8,7 @@
 
 
 <ion-content padding>
-  <h1 text-center>Calories: {{totalCalories}}/1500</h1>
+  <h1 text-center>Calories: {{totalCalories}}/{{userCalls}}</h1>
   <ion-card>
       <ion-card-header>
           <h1>Breakfast</h1>
@@ -24,7 +24,7 @@
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
-            <button ion-button large color="secondary" (click)="mealPost('b')">
+            <button ion-button large color="secondary" (click)="updateMeal()">
               <ion-icon name="ios-add-circle-outline" large></ion-icon>
             </button>
         </ion-col>
@@ -83,7 +83,7 @@
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
-            <button ion-button large color="secondary" (click)="mealPost('d')">
+            <button ion-button large color="secondary" (click)="postMeal('d')">
               <ion-icon name="ios-add-circle-outline" large></ion-icon>
             </button>
         </ion-col>
@@ -112,7 +112,7 @@
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
-            <button ion-button large color="secondary" (click)="mealPost('e')">
+            <button ion-button large color="secondary" (click)="postMeal('e')">
               <ion-icon name="ios-add-circle-outline" large></ion-icon>
             </button>
         </ion-col>

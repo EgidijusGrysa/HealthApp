@@ -9,6 +9,7 @@ import { RegisterService } from '../../services/register';
 import { MyApp } from '../../app/app.component';
 import { App } from 'ionic-angular/components/app/app';
 import { MainMenuPage } from '../main-menu/main-menu';
+import { MainMenuTabsPage } from '../main-menu-tabs/main-menu-tabs';
 
 
 @IonicPage()
@@ -28,8 +29,9 @@ regForm: FormGroup;
       data => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.userId);
+        localStorage.setItem('callories', data.callories);
        
-      this.app.getRootNav().setRoot(MainMenuPage);
+      this.app.getRootNav().setRoot(MainMenuTabsPage);
       },
       error => console.log(error)
     );
