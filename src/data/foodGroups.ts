@@ -54,8 +54,8 @@ export class FoodGroups{
     initLunch(){
         this.lunch = {
             fruit: [
-                new Food("09003","Apple",0,151),
-                new Food("09040","Banana",0,179),
+                new Food("09003","1 medium Apple",0,151),
+                new Food("09040","1 medium Banana",0,179),
                 new Food("09316","Strawberries",0,100),
                 new Food("09050","Blueberries",0,100),
                 new Food("09302","Raspberries",0,100),
@@ -72,7 +72,7 @@ export class FoodGroups{
                 new Food("11253","Letuce",0,50)
             ],
             carbs: [
-                new Food("28397","Slice of Wholegrain Bread",2,35)
+                new Food("28397","2 Slices of Wholegrain Bread",2,35)
             ]        
         }
     }

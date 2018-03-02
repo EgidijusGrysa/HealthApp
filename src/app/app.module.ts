@@ -19,6 +19,7 @@ import { MainMenuTabsPage } from '../pages/main-menu-tabs/main-menu-tabs';
 import { NutritionPage } from '../pages/nutrition/nutrition';
 import { MealPlannerService } from '../services/mealPlanner';
 import { VoiceInputService } from '../services/voiceInput';
+import { PopUpWindowService } from '../services/popUpWindows';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { VoiceInputService } from '../services/voiceInput';
     RegisterService,
     FoodNutritionService,
     MealPlannerService,
-    VoiceInputService
+    VoiceInputService,
+    PopUpWindowService
   ]
 })
 export class AppModule {}

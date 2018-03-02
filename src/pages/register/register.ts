@@ -8,6 +8,8 @@ import { User } from '../../data/user';
 import { VoiceInputService } from '../../services/voiceInput';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { Keyboard } from 'ionic-angular/platform/keyboard';
+import { PopUpWindowService } from '../../services/popUpWindows';
+import { Messages } from '../../data/messages';
 
 
 @IonicPage()
@@ -24,11 +26,14 @@ export class RegisterPage implements OnInit {
   age:string;
   weight:string;
   gender:string;
+  messages: Messages;
 
   constructor(private keyboard:Keyboard, private alertCntrl:AlertController,
     private regService: RegisterService,
-    private voiceInput:VoiceInputService) {
-    //console.log(this.voiceActive);
+    private voiceInput:VoiceInputService,
+    private popUpCntrl: PopUpWindowService) {
+    this.messages = new Messages();
+    this.popUpCntrl.createToastWithClose(this.messages.doubleTap,"bottom");
     this.voiceActive = false;
   }
 

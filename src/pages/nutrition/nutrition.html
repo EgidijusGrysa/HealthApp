@@ -15,10 +15,7 @@
   </div>
   <div class="row">
       <div class="col div_heading">Vitamin B12</div>
-      <div text-center class="col"
-      [ngStyle]="vitaminB12 < 2.4 ? {'background-color':'red'}:{'background-color':'green'}">
-      {{vitaminB12}}mcg
-    </div>
+      <div text-center class="col"[ngStyle]="vitaminB12 < 2.4 ? {'background-color':'red'}:{'background-color':'green'}">{{vitaminB12}}mcg</div>
       <div text-center class="col">2.4mcg</div>
     </div>
     <div class="row ">
@@ -33,7 +30,7 @@
     </div>
     <div class="row ">
         <div class="col div_heading">Fatty acids</div>
-        <div text-center class="col" [ngStyle]="vitaminB12 < 6 ? {'background-color':'red'}:{'background-color':'green'}">{{omega}}g</div>
+        <div text-center class="col" [ngStyle]="vitaminB12 < 6.0 ? {'background-color':'red'}:{'background-color':'green'}">{{omega}}g</div>
         <div text-center class="col">6-9g</div>
     </div>
   
