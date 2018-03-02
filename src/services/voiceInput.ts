@@ -27,7 +27,12 @@ export class VoiceInputService{
         }
         
     }
+    //deletes white spaces and returns the new string
+    deleteWhiteSpace(s: string){
+        return s.replace(/\s/g,"");
+    }
     
+    //deletes white spaces and chnaged 'at' to @ and makes lowercase
     emailInput(eString: string){
         let emailInput = eString.replace(/\s/g,"");
         console.log(emailInput);

@@ -8,13 +8,33 @@
 
 
 <ion-content padding>
-  <table border="1">
-    <th>
-      Nutrition
-    </th>
-    <th>
-        Amount
-      </th>
-      <tr>vitamin c</tr>
-  </table>
+  <div class="row header">
+    <div text-center class="col div_heading">Nutrients</div>
+    <div text-center class="col div_heading">Consumed</div>
+    <div text-center class="col div_heading">Reccomended</div>
+  </div>
+  <div class="row">
+      <div class="col div_heading">Vitamin B12</div>
+      <div text-center class="col"
+      [ngStyle]="vitaminB12 < 2.4 ? {'background-color':'red'}:{'background-color':'green'}">
+      {{vitaminB12}}mcg
+    </div>
+      <div text-center class="col">2.4mcg</div>
+    </div>
+    <div class="row ">
+        <div class="col div_heading">Calcium</div>
+        <div text-center class="col" [ngStyle]="calcium < 1200 ? {'background-color':'red'}:{'background-color':'green'}">{{calcium}}mg</div>
+        <div text-center class="col ">1200mg</div>
+    </div>
+    <div class="row ">
+        <div class="col div_heading">Fibre</div>
+        <div text-center class="col" [ngStyle]="fibre < 21 ? {'background-color':'red'}:{'background-color':'green'}">{{fibre}}g</div>
+        <div text-center class="col">21g</div>
+    </div>
+    <div class="row ">
+        <div class="col div_heading">Fatty acids</div>
+        <div text-center class="col" [ngStyle]="vitaminB12 < 6 ? {'background-color':'red'}:{'background-color':'green'}">{{omega}}g</div>
+        <div text-center class="col">6-9g</div>
+    </div>
+  
 </ion-content>

@@ -39,7 +39,7 @@ export class RegisterPage implements OnInit {
       case "name":
       if(this.voiceActive){
         return this.voiceInput.startLisening().subscribe(x=>{
-            this.regForm.patchValue({name: x});
+            this.regForm.patchValue({name: this.voiceInput.deleteWhiteSpace(x)});
         },
           err=>{
             console.log(err);
@@ -53,7 +53,7 @@ export class RegisterPage implements OnInit {
       case "pass":
       if(this.voiceActive){
         return this.voiceInput.startLisening().subscribe(x=>{
-            this.pass = x;
+            this.pass = this.voiceInput.deleteWhiteSpace(x);
         },
           err=>{
             console.log(err);
@@ -110,9 +110,7 @@ export class RegisterPage implements OnInit {
     }
     
   }
-  
-
-
+ 
   onSubmit(){
 
     const user = new User(

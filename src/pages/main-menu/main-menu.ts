@@ -4,6 +4,7 @@ import { MealPlannerService } from '../../services/mealPlanner';
 import { Meal } from '../../data/meal';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 import { FoodNutritionService } from '../../services/foodNutrition';
+import { NutritionPage } from '../nutrition/nutrition';
 
 
 
@@ -20,12 +21,15 @@ export class MainMenuPage {
   eveMeal: string[];
   userID: string;
   userCalls: string;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public mealPlanner: MealPlannerService,
     private loadingCtrl: LoadingController,
     private foodNutrition: FoodNutritionService) {
+        
       this.totalCalories = 0;
+      
       this.breakfastMeal = [""];
       this.acceptFood();
       this.userID = localStorage.getItem("userId");
@@ -147,6 +151,7 @@ export class MainMenuPage {
             loading.dismiss();
         },
     ()=>{
+        this.totalCalories = this.mealPlanner.calc_Total_Callories();
         this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
         loading.dismiss();
         
@@ -166,6 +171,7 @@ export class MainMenuPage {
       loading.dismiss();
   },
 ()=>{
+    this.totalCalories = this.mealPlanner.calc_Total_Callories();
   this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
   loading.dismiss();
   
@@ -184,6 +190,7 @@ export class MainMenuPage {
       loading.dismiss();
   },
 ()=>{
+    this.totalCalories = this.mealPlanner.calc_Total_Callories();
   this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
   loading.dismiss();
   
@@ -202,6 +209,7 @@ export class MainMenuPage {
       loading.dismiss();
   },
 ()=>{
+    this.totalCalories = this.mealPlanner.calc_Total_Callories();
   this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
   loading.dismiss();
   
@@ -238,10 +246,10 @@ export class MainMenuPage {
       loading.dismiss();
   },
   ()=>{
-      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.breakfast);
-      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.lunch);
-      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.dinner);
-      this.totalCalories += this.mealPlanner.calcCalories(this.mealPlanner.eveSnack);
+      
+      this.totalCalories = this.mealPlanner.calc_Total_Callories();
+      this.populateNutrient_Vars();
+      
       console.log(this.totalCalories);
 
       this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
@@ -251,5 +259,17 @@ export class MainMenuPage {
 
       loading.dismiss();
   });
+  }
+
+  populateNutrient_Vars(){
+    // let x = this.mealPlanner.calcCalories(this.mealPlanner.breakfast,"418")
+    // +this.mealPlanner.calcCalories(this.mealPlanner.lunch,"418")
+    // +this.mealPlanner.calcCalories(this.mealPlanner.dinner,"418")
+    // +this.mealPlanner.calcCalories(this.mealPlanner.eveSnack,"418");
+    // console.log(x);
+    // this.nutrientPage.vitaminB12 = x;
+    // // this.navCtrl.push(NutritionPage,{
+    // //     b12: x
+    // // });
   }
 }

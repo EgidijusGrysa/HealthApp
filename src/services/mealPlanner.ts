@@ -11,13 +11,6 @@ import { Headers } from "@angular/http";
 import { Http } from "@angular/http";
 import { Response } from "@angular/http/src/static_response";
 
-enum TypeOfMeal {
-    Breakfast,
-    Lunch,
-    Dinner,
-    EveningSnack
-}
-
 @Injectable()
 export class MealPlannerService{
     totalCalories: number;
@@ -32,7 +25,6 @@ export class MealPlannerService{
         private loadingCntrl: LoadingController,
         private http: Http){
         
-        let x = TypeOfMeal;
         this.foodGroup = new FoodGroups();
         this.breakfast = new Meal();
         this.lunch = new Meal();
@@ -65,6 +57,7 @@ populateBreakfast()
         this.breakfast.drink=this.randomFood(this.foodGroup.breakfast.drink)        
     }
     
+    
 }
     populateLunch(){
         this.lunch.protein = this.randomFood(this.foodGroup.lunch.protein);
@@ -80,22 +73,24 @@ populateBreakfast()
             this.lunch.veg = this.randomFood(this.foodGroup.lunch.veg);
         }else if(this.lunch.protein.name.includes("nuts")){
             this.lunch.fruit = this.randomFood(this.foodGroup.lunch.fruit);
-        }         
+        }
+               
     }
     populateDiner(){
         this.dinner.protein = this.randomFood(this.foodGroup.dinner.protein);
         this.dinner.carbs = this.randomFood(this.foodGroup.dinner.carbs);
         this.dinner.veg = this.randomFood(this.foodGroup.dinner.veg);
         this.dinner.drink = this.randomFood(this.foodGroup.dinner.drink);
+        
 
     }
     populateEveSnack(){
         this.eveSnack.protein = this.randomFood(this.foodGroup.eveSnack.protein);
         
-        // if(this.eveSnack.protein.name === this.lunch.protein.name){
-        //     this.populateEveSnack();
-        //     return;
-        // }
+        if(this.eveSnack.protein.name === this.lunch.protein.name){
+            this.populateEveSnack();
+            return;
+        }
 
         if(this.eveSnack.protein.name.includes("Greek")){
             this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
@@ -108,7 +103,9 @@ populateBreakfast()
             this.eveSnack.veg = this.randomFood(this.foodGroup.eveSnack.veg);
         }else if(this.eveSnack.protein.name.includes("nuts")){
             this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
-        }      
+        }
+        
+        
     }
     
     mealPlanToString(returnIDs: boolean,meal: Meal){
@@ -128,7 +125,9 @@ populateBreakfast()
         }
         return stringMeal;
     }
-    calcCalories(meal: Meal){
+
+    //returns total number of specified nutrient values thats consumed
+    calcCalories(type: string,meal: Meal,nutrientID: string){
         let totalCal = 0;
         let food: Food[] = [meal.carbs,
             meal.drink,
@@ -141,7 +140,7 @@ populateBreakfast()
                 let grams = item.grams;
                 let nutrients = item.nutrients;
                     nutrients.forEach(item=>{
-                        if(item.nutrient_id ==="208"){
+                        if(item.nutrient_id ===nutrientID){
                             let cals = (item.value /100) * grams;
                             //console.log(cals);
                             totalCal = totalCal + cals;
@@ -150,8 +149,19 @@ populateBreakfast()
                 }
             
         });
+        if(type==="n"){
+            return totalCal;
+        }else if(type === "c"){
+            return Math.round(totalCal);
+        }
         
-        return Math.round(totalCal);
+    }
+
+    calc_Total_Callories(){
+        return this.calcCalories("c",this.breakfast,"208") 
+      + this.calcCalories("c",this.lunch,"208") 
+      + this.calcCalories("c",this.dinner,"208")
+      + this.calcCalories("c",this.eveSnack,"208");
     }
 
     populateNutrition(nutrients: any[]){
@@ -194,6 +204,7 @@ populateBreakfast()
         return x.food.nutrients;
     }
 
+    //picks random food out of an array of foods
     randomFood(foods: Food[]){
         const noOfFoods = foods.length;
         const ran = Math.floor(Math.random() * Math.floor(noOfFoods));
@@ -204,6 +215,7 @@ populateBreakfast()
         return Math.floor(Math.random() * Math.floor(max));
     }
     
+    //sends the meals to database for saving
     postMeal(userMeal: Object){
         const body = JSON.stringify(userMeal);
         const headers = new Headers({'Content-Type': 'application/json'});
@@ -212,6 +224,7 @@ populateBreakfast()
         .catch((err: Response) => Observable.throw(err.json()));
     }
 
+    //updates meals in the database ***********Not working YET*********
     updateMeals(id: string,meals: Object){
         const body = JSON.stringify(meals);
         const headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
