@@ -10,6 +10,7 @@ import { AlertController } from 'ionic-angular/components/alert/alert-controller
 import { Keyboard } from 'ionic-angular/platform/keyboard';
 import { PopUpWindowService } from '../../services/popUpWindows';
 import { Messages } from '../../data/messages';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 
 @IonicPage()
@@ -31,11 +32,22 @@ export class RegisterPage implements OnInit {
   constructor(private keyboard:Keyboard, private alertCntrl:AlertController,
     private regService: RegisterService,
     private voiceInput:VoiceInputService,
-    private popUpCntrl: PopUpWindowService) {
+    private popUpCntrl: PopUpWindowService,
+    private tts:TextToSpeech) {
     this.messages = new Messages();
     this.popUpCntrl.createToastWithClose(this.messages.doubleTap,"bottom");
     this.voiceActive = false;
   }
+
+  SpeakText(text: string){
+        this.tts.speak({
+        text: text,
+        locale: 'en-GB',
+        rate: 0.77
+    })
+    .then(() => console.log("Success"))
+    .catch((err => console.log(err)));
+}
 
 
   startVoiceInput(typeOfInput: string){

@@ -20,6 +20,8 @@ import { NutritionPage } from '../pages/nutrition/nutrition';
 import { MealPlannerService } from '../services/mealPlanner';
 import { VoiceInputService } from '../services/voiceInput';
 import { PopUpWindowService } from '../services/popUpWindows';
+import { TextToSpeechService } from '../services/text-to-speech';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 
 @NgModule({
@@ -53,13 +55,15 @@ import { PopUpWindowService } from '../services/popUpWindows';
   providers: [
     StatusBar,
     SpeechRecognition,
+    TextToSpeech,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RegisterService,
     FoodNutritionService,
     MealPlannerService,
     VoiceInputService,
-    PopUpWindowService
+    PopUpWindowService,
+    TextToSpeechService
   ]
 })
 export class AppModule {}

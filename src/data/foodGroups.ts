@@ -41,9 +41,9 @@ export class FoodGroups{
                 new Food("01129","Boiled egg",2,150),
                 new Food("45067633","Wholegrain oats",0,40)],
                 drink: [
-                    new Food("09206","Orange juice, unsweetened",0,200),
-                    new Food("09016","Apple juice, unsweetened",0,200),
-                    new Food("09123","Grapefruit juice, unsweetened",0,200)
+                    new Food("09206","Orange juice",0,200),
+                    new Food("09016","Apple juice",0,200),
+                    new Food("09123","Grapefruit juice",0,200)
                 ],
             carbs:[
                 new Food("28397","Slice of Wholegrain Bread",2,35),
@@ -97,9 +97,9 @@ export class FoodGroups{
                 //new Food("Cabbage","Cabbaged, boiled",0,150)
             ],
             drink: [
-                new Food("09206","Orange juice, unsweetened",0,200),
-                new Food("09016","Apple juice, unsweetened",0,200),
-                new Food("09123","Grapefruit juice, unsweetened",0,200)
+                new Food("09206","Orange juice",0,200),
+                new Food("09016","Apple juice",0,200),
+                new Food("09123","Grapefruit juice",0,200)
             ]
 
         }

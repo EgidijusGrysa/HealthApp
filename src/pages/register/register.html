@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>Register</ion-title>
+    <ion-title  (click)="SpeakText('register')" text-center>Register</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -14,9 +14,9 @@
       </ion-item>
   <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
     <ion-list>
-      
+        <ion-label (click)="SpeakText('Your Name')">Your Name</ion-label>
       <ion-item >
-          <ion-label>Your Name</ion-label>
+          
         <ion-input         
           (click)="startVoiceInput('name')"
           id="name" 
@@ -25,7 +25,7 @@
         </ion-input>
       </ion-item>
       <ion-item>
-          <ion-label>Your Password</ion-label>
+          <ion-label (click)="SpeakText('Your Password')">Your Password</ion-label>
         <ion-input 
         value="{{pass}}"
         (click)="startVoiceInput('pass')"
@@ -35,7 +35,7 @@
         </ion-input>
       </ion-item>
       <ion-item>
-          <ion-label>Your Email</ion-label>
+          <ion-label (click)="SpeakText('your email')">Your Email</ion-label>
         <ion-input 
         value="{{email}}"
         (click)="startVoiceInput('email')"
@@ -44,7 +44,7 @@
         </ion-input>
       </ion-item>
       <ion-item>
-          <ion-label>Your Age</ion-label>
+          <ion-label (click)="SpeakText('your age')">Your Age</ion-label>
           <ion-input 
 
           value="{{age}}"
@@ -55,7 +55,7 @@
           </ion-input>
       </ion-item>
         <ion-item>
-            <ion-label>Weight in Kilograms</ion-label>
+            <ion-label (click)="SpeakText('weight in kilograms')">Weight in Kilograms</ion-label>
             <ion-input 
             value="{{weight}}"
             (click)="startVoiceInput('weight')"
@@ -64,7 +64,7 @@
              ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Gender</ion-label>
+          <ion-label (click)="SpeakText('your gender')">Gender</ion-label>
           <ion-select formControlName="gender">
             <ion-option value="f">Female</ion-option>
             <ion-option value="m">Male</ion-option>

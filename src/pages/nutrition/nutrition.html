@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>Nutrition</ion-title>
+    <ion-title (click)="SpeakText('Nutrition')" text-center>Nutrition</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,29 +9,29 @@
 
 <ion-content padding>
   <div class="row header">
-    <div text-center class="col div_heading">Nutrients</div>
-    <div text-center class="col div_heading">Consumed</div>
-    <div text-center class="col div_heading">Reccomended</div>
+    <div (click)="SpeakText('nutrients')" text-center class="col div_heading">Nutrients</div>
+    <div (click)="SpeakText('consumed')" text-center class="col div_heading">Consumed</div>
+    <div (click)="SpeakText('Recomended') "text-center class="col div_heading">Reccomended</div>
   </div>
   <div class="row">
-      <div class="col div_heading">Vitamin B12</div>
-      <div text-center class="col"[ngStyle]="vitaminB12 < 2.4 ? {'background-color':'red'}:{'background-color':'green'}">{{vitaminB12}}mcg</div>
-      <div text-center class="col">2.4mcg</div>
+      <div (click)="SpeakText('Vitamin B12')" class="col div_heading">Vitamin B12</div>
+      <div (click)="SpeakText(vitaminB12,' micrograms')" text-center class="col"[ngStyle]="vitaminB12 < 2.4 ? {'background-color':'red'}:{'background-color':'green'}">{{vitaminB12}}mcg</div>
+      <div (click)="SpeakText('2.4 micrograms')" text-center class="col">2.4mcg</div>
     </div>
     <div class="row ">
-        <div class="col div_heading">Calcium</div>
-        <div text-center class="col" [ngStyle]="calcium < 1200 ? {'background-color':'red'}:{'background-color':'green'}">{{calcium}}mg</div>
-        <div text-center class="col ">1200mg</div>
+        <div (click)="SpeakText('Calcium')" class="col div_heading">Calcium</div>
+        <div (click)="SpeakText(calcium,' miligrams')" text-center class="col" [ngStyle]="calcium < 1200 ? {'background-color':'red'}:{'background-color':'green'}">{{calcium}}mg</div>
+        <div (click)="SpeakText('1200 miligrams')" text-center class="col ">1200mg</div>
     </div>
     <div class="row ">
-        <div class="col div_heading">Fibre</div>
-        <div text-center class="col" [ngStyle]="fibre < 21 ? {'background-color':'red'}:{'background-color':'green'}">{{fibre}}g</div>
-        <div text-center class="col">21g</div>
+        <div (click)="SpeakText('fibre')" class="col div_heading">Fibre</div>
+        <div (click)="SpeakText(fibre,' grams')" text-center class="col" [ngStyle]="fibre < 21 ? {'background-color':'red'}:{'background-color':'green'}">{{fibre}}g</div>
+        <div (click)="SpeakText('21 grams')" text-center class="col">21g</div>
     </div>
     <div class="row ">
-        <div class="col div_heading">Fatty acids</div>
-        <div text-center class="col" [ngStyle]="vitaminB12 < 6.0 ? {'background-color':'red'}:{'background-color':'green'}">{{omega}}g</div>
-        <div text-center class="col">6-9g</div>
+        <div (click)="SpeakText('Fatty acids')" class="col div_heading">Fatty acids</div>
+        <div (click)="SpeakText(omega,' grams')" text-center class="col" [ngStyle]="vitaminB12 < 6.0 ? {'background-color':'red'}:{'background-color':'green'}">{{omega}}g</div>
+        <div (click)="SpeakText('6 to 9 grams')" text-center class="col">6-9g</div>
     </div>
   
 </ion-content>

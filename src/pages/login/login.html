@@ -2,7 +2,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Login</ion-title>
+    <ion-title (click)="SpeakText('Login Page')">Login</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -13,6 +13,7 @@
     <ion-list>
       
       <ion-item>
+          <ion-label (click)="SpeakText('Your Email')">Email</ion-label>
         <ion-input id="name" 
           placeholder="Your Email" 
           type="text"
@@ -20,6 +21,7 @@
         </ion-input>
       </ion-item>
       <ion-item>
+          <ion-label (click)="SpeakText('Your password')">Password</ion-label>
         <ion-input id="password" 
           placeholder="Your Password" 
           type="password"

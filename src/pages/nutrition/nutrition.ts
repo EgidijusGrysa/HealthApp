@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MealPlannerService } from '../../services/mealPlanner';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 /**
  * Generated class for the NutritionPage page.
@@ -20,9 +21,28 @@ export class NutritionPage {
   fibre:any;
   omega:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private mealPlanner: MealPlannerService) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    private mealPlanner: MealPlannerService,
+    private tts: TextToSpeech) {
     this.vitaminB12 = 0;
   }
+
+  SpeakText(text: string, weightString?:string){
+    let newText = text
+    if(weightString != undefined){
+      newText += weightString;
+    }
+
+        this.tts.speak({
+        text: newText,
+        locale: 'en-GB',
+        rate: 0.77
+    })
+    .then(() => console.log("Success"))
+    .catch((err => console.log(err)));
+}
+
   ionViewWillEnter(){
     let v12 = (this.mealPlanner.calcCalories("n",this.mealPlanner.breakfast,"418")
     +this.mealPlanner.calcCalories("n",this.mealPlanner.lunch,"418")

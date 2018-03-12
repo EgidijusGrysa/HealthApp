@@ -10,6 +10,7 @@ import { MyApp } from '../../app/app.component';
 import { App } from 'ionic-angular/components/app/app';
 import { MainMenuPage } from '../main-menu/main-menu';
 import { MainMenuTabsPage } from '../main-menu-tabs/main-menu-tabs';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 
 @IonicPage()
@@ -20,7 +21,17 @@ import { MainMenuTabsPage } from '../main-menu-tabs/main-menu-tabs';
 export class LoginPage implements OnInit {
 regForm: FormGroup;
 
-  constructor(private regService: RegisterService, private app: App){}
+  constructor(private regService: RegisterService, private app: App, private tts: TextToSpeech){}
+
+  SpeakText(text: string){
+    this.tts.speak({
+    text: text,
+    locale: 'en-GB',
+    rate: 0.77
+})
+.then(() => console.log("Success"))
+.catch((err => console.log(err)));
+}
 
   onSubmit(){
     const user = new User(this.regForm.value.email,this.regForm.value.password);

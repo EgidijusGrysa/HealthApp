@@ -5,6 +5,9 @@ import { Meal } from '../../data/meal';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 import { FoodNutritionService } from '../../services/foodNutrition';
 import { NutritionPage } from '../nutrition/nutrition';
+import { VoiceInputService } from '../../services/voiceInput';
+import { TextToSpeechService } from '../../services/text-to-speech';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 
 
@@ -26,7 +29,9 @@ export class MainMenuPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public mealPlanner: MealPlannerService,
     private loadingCtrl: LoadingController,
-    private foodNutrition: FoodNutritionService) {
+    private foodNutrition: FoodNutritionService,
+    private voiceCntrl: VoiceInputService,
+    private tts: TextToSpeech) {
         
       this.totalCalories = 0;
       
@@ -34,7 +39,47 @@ export class MainMenuPage {
       this.acceptFood();
       this.userID = localStorage.getItem("userId");
       this.userCalls = localStorage.getItem("callories");
+      
   }
+  SpeakText(text: string[]){
+    let x = "";
+    text.forEach(element => {
+        x += element + " , ";
+    });
+    this.tts.speak({
+        text: x,
+        locale: 'en-GB',
+        rate: 0.77
+    })
+    .then(() => console.log("Success"))
+    .catch((err => console.log(err)));
+}
+  
+
+  voiceInputLisen_Background(){
+    this.voiceCntrl.startLisening_NoUI().subscribe(
+        data=>{
+            console.log(data);
+          this.checkResult(data);
+      },
+        err=>{
+            console.log(err);
+        });
+  }
+
+  checkResult(speechItem:string){
+    let result = this.voiceCntrl.findMatch(speechItem,this.voiceCntrl.speechList);
+    console.log(result);
+    if(result != null){
+        switch(result) {
+            case "decline breakfast":
+            this.changeMeal("b");
+            break;
+        }
+    }    
+   
+    
+}
 
   updateMeal(){
     var obj = new Object({
@@ -258,6 +303,7 @@ export class MainMenuPage {
       this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
 
       loading.dismiss();
+      this.voiceInputLisen_Background();
   });
   }
 
