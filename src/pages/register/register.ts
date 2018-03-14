@@ -51,7 +51,7 @@ export class RegisterPage implements OnInit {
 
 
   startVoiceInput(typeOfInput: string){
-    
+    console.log("Tapped Mic");
     switch(typeOfInput){
       case "name":
       if(this.voiceActive){

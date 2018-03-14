@@ -11,6 +11,7 @@ import { App } from 'ionic-angular/components/app/app';
 import { MainMenuPage } from '../main-menu/main-menu';
 import { MainMenuTabsPage } from '../main-menu-tabs/main-menu-tabs';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { VoiceInputService } from '../../services/voiceInput';
 
 
 @IonicPage()
@@ -20,8 +21,13 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 })
 export class LoginPage implements OnInit {
 regForm: FormGroup;
+isSelected: boolean;
+email:string;
+pass:string;
 
-  constructor(private regService: RegisterService, private app: App, private tts: TextToSpeech){}
+  constructor(private regService: RegisterService, private app: App, private tts: TextToSpeech,private voiceInput: VoiceInputService){
+    this.isSelected = false;
+  }
 
   SpeakText(text: string){
     this.tts.speak({
@@ -31,6 +37,40 @@ regForm: FormGroup;
 })
 .then(() => console.log("Success"))
 .catch((err => console.log(err)));
+}
+
+startVoiceInput(typeOfInput: string){
+  console.log("Tapped Mic");
+  switch(typeOfInput){
+    case "pass":
+    
+      return this.voiceInput.startLisening().subscribe(x=>{
+          this.pass = this.voiceInput.deleteWhiteSpace(x);
+      },
+        err=>{
+          console.log(err);
+        },
+        ()=>{
+          //this.name = "got here";
+          console.log("Sucessful");
+        });
+    
+    
+    case "email":
+    
+      return this.voiceInput.startLisening().subscribe(x=>{
+          this.email = this.voiceInput.emailInput(x);
+      },
+        err=>{
+          console.log(err);
+        },
+        ()=>{
+          //this.name = "got here";
+          console.log("Sucessful");
+        });
+    
+      
+  } 
 }
 
   onSubmit(){

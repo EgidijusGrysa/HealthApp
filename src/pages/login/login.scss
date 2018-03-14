@@ -1,3 +1,39 @@
 page-login {
-
+    ion-input:hover{
+        
+    }
+    .my-div{
+        background-color: rgb(195, 222, 250);
+        //border: 2px solid #80a4f8;
+        border-radius: 30px;
+        width: 70%;
+        margin: auto;
+    }
+    .my-div:focus{
+        background-color: rgb(195, 222, 250);
+        border: 2px solid #80a4f8;
+        border-radius: 30px;
+        width: 70%;
+        margin: auto;
+    }
+    
+    .label{
+        color: rgb(179, 179, 179);
+        margin-left: 20%;
+        margin-top: 20px;
+        margin-bottom: 2px;
+        font-size: 16px;
+    }
+    .button{
+        margin: auto;
+        width: 70%;
+        height: 70px;
+        border-radius: 50px;
+        
+    }
+    
+    .bottom-line{
+        border-bottom: 2px solid black;
+        border-bottom-width: 80%;  
+    }
 }

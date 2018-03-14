@@ -12,24 +12,45 @@
   <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
     <ion-list>
       
-      <ion-item>
-          <ion-label (click)="SpeakText('Your Email')">Email</ion-label>
-        <ion-input id="name" 
-          placeholder="Your Email" 
+        <ion-label class="label" (click)="SpeakText('Your Email')">Email</ion-label>
+        <div class="my-div">
+            <ion-row>
+                <ion-col col-3>
+                    <button type="button" ion-button icon-only clear item-start (click)="startVoiceInput('email')">
+                        <ion-icon name="md-mic"></ion-icon>
+                      </button>
+                </ion-col>
+                <ion-col>
+                    <ion-input id="email"
+                    value="{{email}}"
+                    (click)="isSelected = true"
           type="text"
           formControlName="email">
         </ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label (click)="SpeakText('Your password')">Password</ion-label>
-        <ion-input id="password" 
-          placeholder="Your Password" 
+                </ion-col>
+              </ion-row>
+            </div>
+           
+      <ion-label (click)="SpeakText('Your password')">Password</ion-label>
+      <div class="my-div">
+          <ion-row>
+              <ion-col col-3>
+                  <button type="button" ion-button icon-only clear item-start (click)="startVoiceInput('pass')">
+                      <ion-icon name="md-mic"></ion-icon>
+                    </button>
+              </ion-col>
+              <ion-col>
+                  <ion-input id="password" 
+                  value="{{pass}}" 
           type="password"
           formControlName="password">
         </ion-input>
-      </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
+      
       <ion-item>
-        <button ion-button large 
+        <button class="button bottom-line" ion-button large 
         type="submit" 
         [disabled]="!regForm.valid">Register</button>
         

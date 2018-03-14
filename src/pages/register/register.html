@@ -14,64 +14,111 @@
       </ion-item>
   <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
     <ion-list>
-        <ion-label (click)="SpeakText('Your Name')">Your Name</ion-label>
-      <ion-item >
-          
-        <ion-input         
-          (click)="startVoiceInput('name')"
-          id="name" 
-          type="text"
-          formControlName="name">
+        
+      <ion-label class="label" (click)="SpeakText('Your Name')">Your Name</ion-label>
+      <div class="my-div">
+      <ion-row>
+          <ion-col col-3>
+              <button type="button" ion-button icon-only clear item-start (click)="startVoiceInput('name')">
+                  <ion-icon name="md-mic"></ion-icon>
+                </button>
+          </ion-col>
+          <ion-col>
+              <ion-input 
+              item-left 
+              id="name" 
+              type="text"
+              formControlName="name">
+            </ion-input>
+          </ion-col>
+        </ion-row>
+      </div>  
+        
+      <ion-label class="label" (click)="SpeakText('Your Password')">Your Password</ion-label>
+      <div class="my-div">
+          <ion-row>
+              <ion-col col-3>
+                  <button type="button" ion-button icon-only clear item-start (click)="startVoiceInput('pass')">
+                      <ion-icon name="md-mic"></ion-icon>
+                    </button>
+              </ion-col>
+              <ion-col>
+                  <ion-input 
+                  value="{{pass}}"
+                  id="password" 
+                  type="password"
+                  formControlName="password">
         </ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label (click)="SpeakText('Your Password')">Your Password</ion-label>
-        <ion-input 
-        value="{{pass}}"
-        (click)="startVoiceInput('pass')"
-        id="password" 
-        type="password"
-          formControlName="password">
-        </ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label (click)="SpeakText('your email')">Your Email</ion-label>
-        <ion-input 
-        value="{{email}}"
-        (click)="startVoiceInput('email')"
+              </ion-col>
+            </ion-row>
+          </div>  
+      
+
+      <ion-label class="label" (click)="SpeakText('your email')">Your Email</ion-label>
+      <div class="my-div">
+          <ion-row>
+              <ion-col col-3>
+                  <button type="button" ion-button icon-only clear item-start (click)="startVoiceInput('email')">
+                      <ion-icon name="md-mic"></ion-icon>
+                    </button>
+              </ion-col>
+              <ion-col>
+                  <ion-input 
+          value="{{email}}"
           formControlName="email" 
           id="email" type="email" >
         </ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label (click)="SpeakText('your age')">Your Age</ion-label>
-          <ion-input 
+              </ion-col>
+            </ion-row>
+          </div> 
 
-          value="{{age}}"
-          (click)="startVoiceInput('age')"
+      <ion-label class="label" (click)="SpeakText('your age')">Your Age</ion-label>
+      <div class="my-div">
+          <ion-row>
+              <ion-col col-3>
+                  <button type="button" ion-button icon-only clear item-start (click)="startVoiceInput('age')">
+                      <ion-icon name="md-mic"></ion-icon>
+                    </button>
+              </ion-col>
+              <ion-col>
+                  <ion-input 
+            value="{{age}}"
             formControlName="age" 
-            id="age" type="number"
-            >
+            id="age" type="number">
           </ion-input>
-      </ion-item>
-        <ion-item>
-            <ion-label (click)="SpeakText('weight in kilograms')">Weight in Kilograms</ion-label>
-            <ion-input 
+              </ion-col>
+            </ion-row>
+          </div> 
+      
+          
+
+      <ion-label class="label" (click)="SpeakText('weight in kilograms')">Weight in Kilograms</ion-label>
+      <div class="my-div">
+          <ion-row>
+              <ion-col col-3>
+                  <button type="button" ion-button icon-only clear item-start (click)="startVoiceInput('weight')">
+                      <ion-icon name="md-mic"></ion-icon>
+                    </button>
+              </ion-col>
+              <ion-col>
+                  <ion-input 
             value="{{weight}}"
-            (click)="startVoiceInput('weight')"
             formControlName="weight" 
-              id="weight" type="number"
-             ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label (click)="SpeakText('your gender')">Gender</ion-label>
-          <ion-select formControlName="gender">
+              id="weight" type="number"></ion-input>
+              </ion-col>
+            </ion-row>
+          </div>
+
+        <ion-label class="label" (click)="SpeakText('your gender')">Gender</ion-label>
+        <ion-item class="my-item">
+          <ion-select class="select" placeholder="Please select one..." formControlName="gender">
             <ion-option value="f">Female</ion-option>
             <ion-option value="m">Male</ion-option>
           </ion-select>
         </ion-item>
-        <ion-item>
-          <button ion-button large type="submit" [disabled]="!regForm.valid">Register</button>
+
+        <ion-item no-lines>
+          <button class="my-button bottom-line" ion-button large type="submit" [disabled]="!regForm.valid">Register</button>
         </ion-item>
       
     </ion-list>

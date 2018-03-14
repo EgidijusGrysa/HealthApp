@@ -1,3 +1,56 @@
 page-register {
+    
+ion-input{
+   font-size: 16px;
+}
+
+.mic-display{
+    margin-right: 0%;
+    color: rgb(7, 69, 155);
+}
+.my-div{
+    background-color: rgb(195, 222, 250);
+    //border: 2px solid #80a4f8;
+    border-radius: 30px;
+    width: 70%;
+    margin: auto;
+}
+
+.my-div:hover{
+    background-color: rgb(195, 222, 250);
+    border: 2px solid #80a4f8;
+    border-radius: 30px;
+    width: 70%;
+    margin: auto;
+}
+
+.label{
+    color: rgb(179, 179, 179);
+    margin-left: 20%;
+    margin-top: 20px;
+    margin-bottom: 2px;
+    font-size: 16px;
+}
+.my-button{
+    margin: auto;
+    width: 60%;
+    height: 70px;
+    border-radius: 50px;
+    
+}
+
+.bottom-line{
+    border-bottom: 2px solid black;
+    border-bottom-width: 80%;  
+}
+
+.select{
+max-width: 80% !important;
+margin: auto;
+margin-bottom: 20px;
+}
+
+
+
 
 }

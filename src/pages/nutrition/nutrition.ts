@@ -37,7 +37,7 @@ export class NutritionPage {
         this.tts.speak({
         text: newText,
         locale: 'en-GB',
-        rate: 0.77
+        rate: 0.80
     })
     .then(() => console.log("Success"))
     .catch((err => console.log(err)));
