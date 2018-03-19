@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Validators } from '@angular/forms';
@@ -11,6 +11,9 @@ import { Keyboard } from 'ionic-angular/platform/keyboard';
 import { PopUpWindowService } from '../../services/popUpWindows';
 import { Messages } from '../../data/messages';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { MainMenuTabsPage } from '../main-menu-tabs/main-menu-tabs';
+import { MainMenuPage } from '../main-menu/main-menu';
+import { HelperService } from '../../services/helperClass';
 
 
 @IonicPage()
@@ -29,11 +32,15 @@ export class RegisterPage implements OnInit {
   gender:string;
   messages: Messages;
 
-  constructor(private keyboard:Keyboard, private alertCntrl:AlertController,
+  constructor(private keyboard:Keyboard,
+    private helper: HelperService, 
+    private alertCntrl:AlertController,
     private regService: RegisterService,
     private voiceInput:VoiceInputService,
     private popUpCntrl: PopUpWindowService,
-    private tts:TextToSpeech) {
+    private tts:TextToSpeech,
+    private navCntrl: NavController,
+    private app: App) {
     this.messages = new Messages();
     this.popUpCntrl.createToastWithClose(this.messages.doubleTap,"bottom");
     this.voiceActive = false;
@@ -141,11 +148,37 @@ export class RegisterPage implements OnInit {
 
       this.regService.registerUser(user)
       .subscribe(
-        data => console.log(data),
-        error => console.log(error),
-        ()=>console.log("moved to new page")
-      );
+        data => {
+          console.log(data);
+        },
+        error => {
+          this.popUpCntrl.createToastTimer(error.error.message,"bottom",5000);
+          console.log(error)}
+          ,
+        ()=>{
+          console.log("moved to new page");
+          this.signIn();
+        });
       //this.regForm.reset();
+  }
+
+  signIn(){
+    const user = new User(this.regForm.value.email,this.regForm.value.password);
+    this.regService.signIn(user)
+    .subscribe(
+      data => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('callories', data.callories);
+        this.helper.cameFromRegister = true;
+        this.app.getRootNav().setRoot(MainMenuTabsPage);
+      },
+      
+      error => {
+        this.popUpCntrl.createToastTimer(error.error.message,"bottom",5000);
+        console.log(error.error.message);
+      }
+    );
   }
 
   calculateCallories(gender: string,age: number, weight: number){

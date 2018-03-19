@@ -22,6 +22,7 @@ import { VoiceInputService } from '../services/voiceInput';
 import { PopUpWindowService } from '../services/popUpWindows';
 import { TextToSpeechService } from '../services/text-to-speech';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { HelperService } from '../services/helperClass';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
     MealPlannerService,
     VoiceInputService,
     PopUpWindowService,
-    TextToSpeechService
+    TextToSpeechService,
+    HelperService
   ]
 })
 export class AppModule {}

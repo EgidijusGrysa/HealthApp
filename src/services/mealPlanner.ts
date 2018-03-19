@@ -214,6 +214,15 @@ populateBreakfast()
     randomNum(max){
         return Math.floor(Math.random() * Math.floor(max));
     }
+
+    getCurrentMealForUser(){
+        let userID = localStorage.getItem("userId");
+        const headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
+        return this.http.get("http://localhost:8080/healthapp/usermeals/"+userID,{headers:headers})
+        .map((response: Response) =>{
+            return response.json().obj;
+        }).catch((error: Response)=> Observable.throw(error.json())); 
+    }
     
     //sends the meals to database for saving
     postMeal(userMeal: Object){

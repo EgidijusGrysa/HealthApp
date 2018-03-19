@@ -8,6 +8,7 @@ import { NutritionPage } from '../nutrition/nutrition';
 import { VoiceInputService } from '../../services/voiceInput';
 import { TextToSpeechService } from '../../services/text-to-speech';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { HelperService } from '../../services/helperClass';
 
 
 
@@ -31,12 +32,15 @@ export class MainMenuPage {
     private loadingCtrl: LoadingController,
     private foodNutrition: FoodNutritionService,
     private voiceCntrl: VoiceInputService,
-    private tts: TextToSpeech) {
-        
+    private tts: TextToSpeech,
+    private helper: HelperService) {
+    
       this.totalCalories = 0;
       
       this.breakfastMeal = [""];
-      this.acceptFood();
+      if(this.helper.cameFromRegister){ this.acceptFood(); }
+      if(this.helper.cameFromLogin) { this.getMealForLoggedUser(); }
+      
       this.userID = localStorage.getItem("userId");
       this.userCalls = localStorage.getItem("callories");
       
@@ -103,6 +107,30 @@ export class MainMenuPage {
     )
   }
 
+  //get the meal for the logged in user after loggin in
+  getMealForLoggedUser(){
+      let loader = this.loadingCtrl.create({
+          content: 'Loading you meal plan...'
+      });
+      loader.present();
+      this.mealPlanner.getCurrentMealForUser()
+      .subscribe(data=>{
+        this.mealPlanner.breakfast = data.dayMeals[0].breakfast;
+        this.mealPlanner.lunch = data.dayMeals[0].lunch;
+        this.mealPlanner.dinner = data.dayMeals[0].dinner;
+        this.mealPlanner.eveSnack = data.dayMeals[0].eveMeal;
+        console.log(data);
+      },err=>{
+        console.log(err);
+      },
+    ()=>{
+        this.MealsToString();
+        loader.dismiss();
+    });
+  }
+
+
+//   post new meal
   mealPost(){
       var obj = new Object({
         userID: this.userID,
@@ -296,15 +324,19 @@ export class MainMenuPage {
       this.populateNutrient_Vars();
       
       console.log(this.totalCalories);
-
-      this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
-      this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
-      this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
-      this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
+      this.MealsToString();    
 
       loading.dismiss();
       this.voiceInputLisen_Background();
+      this.mealPost();
   });
+  }
+
+  MealsToString(){
+    this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
+    this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
+    this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
+    this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
   }
 
   populateNutrient_Vars(){

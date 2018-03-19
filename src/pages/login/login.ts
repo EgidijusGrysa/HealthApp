@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl } from '@angular/forms';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Validators } from '@angular/forms';
@@ -12,6 +12,8 @@ import { MainMenuPage } from '../main-menu/main-menu';
 import { MainMenuTabsPage } from '../main-menu-tabs/main-menu-tabs';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { VoiceInputService } from '../../services/voiceInput';
+import { PopUpWindowService } from '../../services/popUpWindows';
+import { HelperService } from '../../services/helperClass';
 
 
 @IonicPage()
@@ -25,7 +27,14 @@ isSelected: boolean;
 email:string;
 pass:string;
 
-  constructor(private regService: RegisterService, private app: App, private tts: TextToSpeech,private voiceInput: VoiceInputService){
+  constructor(private popUpCntrl: PopUpWindowService, 
+    private regService: RegisterService, 
+    private app: App, 
+    private tts: TextToSpeech,
+    private voiceInput: VoiceInputService,
+    private navCntrl: NavController,
+    private helper: HelperService,
+    private loadingCntrl: LoadingController){
     this.isSelected = false;
   }
 
@@ -74,6 +83,10 @@ startVoiceInput(typeOfInput: string){
 }
 
   onSubmit(){
+    var loading = this.loadingCntrl.create({
+      content:'Loging in...'
+    });
+    loading.present();
     const user = new User(this.regForm.value.email,this.regForm.value.password);
     this.regService.signIn(user)
     .subscribe(
@@ -81,10 +94,17 @@ startVoiceInput(typeOfInput: string){
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('callories', data.callories);
-       
-      this.app.getRootNav().setRoot(MainMenuTabsPage);
+        this.helper.cameFromLogin = true;
+        this.app.getRootNav().setRoot(MainMenuTabsPage);
       },
-      error => console.log(error)
+      
+      error => {
+        this.popUpCntrl.createToastTimer(error.error.message,"bottom",5000);
+        console.log(error.error.message);
+      },
+      ()=>{
+        loading.dismiss();
+      }
     );
 
   }

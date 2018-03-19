@@ -20,13 +20,13 @@ export class PopUpWindowService{
         toast.present();
     }
 
-    // createToastTimer(message: string,pos:string,duration: number){
-    //     let toast = this.toastCtrl.create({
-    //         message: message,
-    //         position:pos,
-    //         duration:duration
-    //     });
+    createToastTimer(message: string,pos:string,duration: number){
+        let toast = this.toastCtrl.create({
+            message: message,
+            position:pos,
+            duration:duration
+        });
 
-    //     toast.present();
-    // }
+        toast.present();
+    }
 }
