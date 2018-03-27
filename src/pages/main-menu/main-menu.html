@@ -8,7 +8,11 @@
 
 
 <ion-content padding>
-  <h1 text-center>Calories: {{totalCalories}}/{{userCalls}}</h1>
+  <h1 
+  (click)="SpeakText(['Calories you have consumed to day is ' + totalCalories + ' out of ' + userCalls])"
+  text-center>
+  Calories: {{totalCalories}}/{{userCalls}}
+</h1>
 
 
 
@@ -20,7 +24,7 @@
       <ion-card-header>
         <ion-row>
             <ion-col>
-                <h1>Breakfast</h1>
+                <h1 (click)="SpeakText(['breakfast'])">Breakfast</h1>
             </ion-col>
             <ion-col col-auto>
                   <ion-icon (click)="SpeakText(breakfastMeal)" name="md-volume-up" large></ion-icon>
@@ -34,7 +38,9 @@
       <ion-row>
         <ion-col auto>
           <ion-card-content>
-              <h2>{{mealPlanner.breakfast.protein.name}}</h2>
+              <h2 (click)="SpeakText([mealPlanner.breakfast.protein.name + mealPlanner.breakfast.protein.grams + 'grams'])">
+                {{mealPlanner.breakfast.protein.name}}
+              </h2>
           </ion-card-content>
         </ion-col>
           <ion-col col-5>
@@ -50,7 +56,9 @@
       <ion-row>
         <ion-col auto>
           <ion-card-content>
-              <h2>{{mealPlanner.breakfast.carbs.name}}</h2>
+              <h2 (click)="SpeakText([mealPlanner.breakfast.carbs.name + mealPlanner.breakfast.carbs.grams + 'grams'])">
+                {{mealPlanner.breakfast.carbs.name}}
+              </h2>
           </ion-card-content>
         </ion-col>
           <ion-col col-5>
@@ -66,7 +74,9 @@
       <ion-row>
         <ion-col auto>
           <ion-card-content>
-              <h2>{{mealPlanner.breakfast.veg.name}}</h2>
+              <h2 (click)="SpeakText([mealPlanner.breakfast.veg.name + mealPlanner.breakfast.veg.grams + 'grams'])">
+                {{mealPlanner.breakfast.veg.name}}
+              </h2>
           </ion-card-content>
         </ion-col>
           <ion-col col-5>
@@ -82,7 +92,9 @@
       <ion-row>
         <ion-col auto>
           <ion-card-content>
-              <h2>{{mealPlanner.breakfast.fruit.name}}</h2>
+              <h2 (click)="SpeakText([mealPlanner.breakfast.fruit.name + mealPlanner.breakfast.fruit.grams + 'grams'])">
+                {{mealPlanner.breakfast.fruit.name}}
+              </h2>
           </ion-card-content>
         </ion-col>
           <ion-col col-5>
@@ -98,7 +110,9 @@
       <ion-row>
         <ion-col auto>
           <ion-card-content>
-              <h2>{{mealPlanner.breakfast.drink.name}}</h2>
+              <h2 (click)="SpeakText([mealPlanner.breakfast.drink.name + mealPlanner.breakfast.drink.grams + 'grams'])">
+                {{mealPlanner.breakfast.drink.name}}
+              </h2>
           </ion-card-content>
         </ion-col>
           <ion-col col-5>
@@ -134,7 +148,7 @@
       <ion-card-header>
           <ion-row>
               <ion-col>
-                  <h1>Lunch</h1>
+                  <h1 (click)="SpeakText(['lunch'])">Lunch</h1>
               </ion-col>
               <ion-col col-auto>
                     <ion-icon (click)="SpeakText(lunchMeal)" name="md-volume-up" large></ion-icon>
@@ -147,7 +161,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.lunch.protein.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.lunch.protein.name + mealPlanner.lunch.protein.grams + 'grams'])">
+                  {{mealPlanner.lunch.protein.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -163,7 +179,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.lunch.carbs.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.lunch.carbs.name + mealPlanner.lunch.carbs.grams + 'grams'])">
+                  {{mealPlanner.lunch.carbs.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -179,7 +197,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.lunch.veg.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.lunch.veg.name + mealPlanner.lunch.veg.grams + 'grams'])">
+                  {{mealPlanner.lunch.veg.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -195,7 +215,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.lunch.fruit.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.lunch.fruit.name + mealPlanner.lunch.fruit.grams + 'grams'])">
+                  {{mealPlanner.lunch.fruit.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -211,7 +233,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.lunch.drink.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.lunch.drink.name + mealPlanner.lunch.drink.grams + 'grams'])">
+                  {{mealPlanner.lunch.drink.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -245,7 +269,7 @@
       <ion-card-header>
           <ion-row>
               <ion-col>
-                  <h1>Dinner</h1>
+                  <h1 (click)="SpeakText(['dinner'])">Dinner</h1>
               </ion-col>
               <ion-col col-auto>
                     <ion-icon (click)="SpeakText(dinnerMeal)" name="md-volume-up" large></ion-icon>
@@ -258,7 +282,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.dinner.protein.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.dinner.protein.name + mealPlanner.dinner.protein.grams + 'grams'])">
+                  {{mealPlanner.dinner.protein.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -274,7 +300,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.dinner.carbs.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.dinner.carbs.name + mealPlanner.dinner.carbs.grams + 'grams'])">
+                  {{mealPlanner.dinner.carbs.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -290,7 +318,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.dinner.veg.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.dinner.veg.name + mealPlanner.dinner.veg.grams + 'grams'])">
+                  {{mealPlanner.dinner.veg.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -306,7 +336,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.dinner.fruit.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.dinner.fruit.name + mealPlanner.dinner.fruit.grams + 'grams'])">
+                  {{mealPlanner.dinner.fruit.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -322,7 +354,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.dinner.drink.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.dinner.drink.name + mealPlanner.dinner.drink.grams + 'grams'])">
+                  {{mealPlanner.dinner.drink.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -357,7 +391,7 @@
       <ion-card-header>
           <ion-row>
               <ion-col>
-                  <h1>Evening Snack</h1>
+                  <h1 (click)="SpeakText(['Evening snack'])">Evening Snack</h1>
               </ion-col>
               <ion-col col-auto>
                     <ion-icon (click)="SpeakText(eveMeal)" name="md-volume-up" large></ion-icon>
@@ -370,7 +404,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.eveSnack.protein.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.eveSnack.protein.name + mealPlanner.eveSnack.protein.grams + 'grams'])">
+                  {{mealPlanner.eveSnack.protein.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -386,7 +422,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.eveSnack.carbs.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.eveSnack.carbs.name + mealPlanner.eveSnack.carbs.grams + 'grams'])">
+                  {{mealPlanner.eveSnack.carbs.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -402,7 +440,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.eveSnack.veg.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.eveSnack.veg.name + mealPlanner.eveSnack.veg.grams + 'grams'])">
+                  {{mealPlanner.eveSnack.veg.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -418,7 +458,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.eveSnack.fruit.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.eveSnack.fruit.name + mealPlanner.eveSnack.fruit.grams + 'grams'])">
+                  {{mealPlanner.eveSnack.fruit.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>
@@ -434,7 +476,9 @@
         <ion-row>
           <ion-col auto>
             <ion-card-content>
-                <h2>{{mealPlanner.eveSnack.drink.name}}</h2>
+                <h2 (click)="SpeakText([mealPlanner.eveSnack.drink.name + mealPlanner.eveSnack.drink.grams + 'grams'])">
+                  {{mealPlanner.eveSnack.drink.name}}
+                </h2>
             </ion-card-content>
           </ion-col>
             <ion-col col-5>

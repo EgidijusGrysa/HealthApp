@@ -172,11 +172,27 @@ populateBreakfast()
             if(meal.fruit.name != "none") stringMeal.push(meal.fruit.id);
             if(meal.drink.name != "none") stringMeal.push(meal.drink.id);
         }else{
-            if(meal.protein.name != "none") stringMeal.push(meal.protein.name);
-            if(meal.carbs.name != "none") stringMeal.push(meal.carbs.name);
-            if(meal.veg.name != "none") stringMeal.push(meal.veg.name);
-            if(meal.fruit.name != "none") stringMeal.push(meal.fruit.name);
-            if(meal.drink.name != "none") stringMeal.push(meal.drink.name);
+            if(meal.protein.name != "none") {
+                let x = meal.protein.name + ", " + meal.protein.grams + " grams";
+                stringMeal.push(x);
+            };
+            if(meal.carbs.name != "none") {
+                let x = meal.carbs.name + ", " + meal.carbs.grams + " grams";
+                stringMeal.push(x);
+            }
+            if(meal.veg.name != "none") {
+                let x = meal.veg.name + ", " + meal.veg.grams + " grams";
+                stringMeal.push(x);
+            }
+            if(meal.fruit.name != "none") {
+                let x = meal.fruit.name + ", " + meal.fruit.grams + " grams";
+                stringMeal.push(x);
+            }
+            if(meal.drink.name != "none") {
+                let x = meal.drink.name + ", " + meal.drink.grams + " grams";
+                stringMeal.push(x);
+            }
+                
         }
         return stringMeal;
     }

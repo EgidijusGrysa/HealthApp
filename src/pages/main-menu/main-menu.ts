@@ -47,15 +47,11 @@ export class MainMenuPage {
       
   }
 
-  say()
-{
-    
-    this.artyomCntrl.say("hello world");
-}
+
   SpeakText(text: string[]){
     let x = "";
     text.forEach(element => {
-        x += element + " , ";
+        x += element + " ,    ";
     });
     this.tts.speak({
         text: x,
@@ -161,56 +157,34 @@ export class MainMenuPage {
       )
   }
 
+  private _postMeal(meal: Meal) {
+    this.mealPlanner.postMeal(meal)
+    .subscribe(
+      data=> {
+          console.log(data);
+      },
+      err => console.log(err)
+    );
+  }
   postMeal(string:String){
       switch(string){
           case 'b':
-          
-          this.mealPlanner.postMeal(this.mealPlanner.breakfast)
-          .subscribe(
-            data=> {
-                console.log(data);
-            },
-            err => console.log(err)
-          );
+          this._postMeal(this.mealPlanner.breakfast);
           break;
           case 'l':
-          this.mealPlanner.postMeal(this.mealPlanner.lunch)
-          .subscribe(
-            data=> {
-                console.log(data);
-            },
-            err => console.log(err)
-          );
+         this._postMeal(this.mealPlanner.lunch);
           break;
           case 'd':
-          this.mealPlanner.postMeal(this.mealPlanner.dinner)
-          .subscribe(
-            data=> {
-                console.log(data);
-            },
-            err => console.log(err)
-          );
+          this._postMeal(this.mealPlanner.dinner);
           break;
           case 'e':
-          this.mealPlanner.postMeal(this.mealPlanner.lunch)
-          .subscribe(
-            data=> {
-                console.log(data);
-            },
-            err => console.log(err)
-          );
+          this._postMeal(this.mealPlanner.eveSnack);
           break;
       }
-      this.mealPlanner.postMeal(this.mealPlanner.eveSnack)
-      .subscribe(
-        data=> {
-            console.log(data);
-        },
-        err => console.log(err)
-      );
-  }
+    }
 
-  changeMeal(m: string){
+    
+    changeMeal(m: string){
     
     const loading = this.loadingCtrl.create({
       content: 'Updating new meal...'
