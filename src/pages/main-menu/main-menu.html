@@ -9,6 +9,13 @@
 
 <ion-content padding>
   <h1 text-center>Calories: {{totalCalories}}/{{userCalls}}</h1>
+
+
+
+
+
+
+  <!-- BREAKFASt -->
   <ion-card>
       <ion-card-header>
         <ion-row>
@@ -21,17 +28,90 @@
         </ion-row>
         </ion-card-header>
   <ion-grid>
+
+    <!-- MAIN FOOD -->
+    <div *ngIf="mealPlanner.breakfast.protein.name != 'none'">
       <ion-row>
-        <ion-col>
-             <ion-card-content>
-               <h2 *ngFor="let meal of breakfastMeal; let i=index">{{i+1}}.{{meal}}</h2>
-             </ion-card-content>
+        <ion-col auto>
+          <ion-card-content>
+              <h2>{{mealPlanner.breakfast.protein.name}}</h2>
+          </ion-card-content>
         </ion-col>
+          <ion-col col-5>
+            <ion-card-content>
+                <h2>Grams: {{mealPlanner.breakfast.protein.grams}}</h2>
+            </ion-card-content>
+          </ion-col>
       </ion-row>
+    </div>
+
+    <!-- CARBS -->
+    <div *ngIf="mealPlanner.breakfast.carbs.name != 'none'">
+      <ion-row>
+        <ion-col auto>
+          <ion-card-content>
+              <h2>{{mealPlanner.breakfast.carbs.name}}</h2>
+          </ion-card-content>
+        </ion-col>
+          <ion-col col-5>
+            <ion-card-content>
+                <h2>Grams: {{mealPlanner.breakfast.carbs.grams}}</h2>
+            </ion-card-content>
+          </ion-col>
+      </ion-row>      
+    </div>
+
+    <!-- VEGATABLES -->
+    <div *ngIf="mealPlanner.breakfast.veg.name != 'none'">
+      <ion-row>
+        <ion-col auto>
+          <ion-card-content>
+              <h2>{{mealPlanner.breakfast.veg.name}}</h2>
+          </ion-card-content>
+        </ion-col>
+          <ion-col col-5>
+            <ion-card-content>
+                <h2>Grams: {{mealPlanner.breakfast.veg.grams}}</h2>
+            </ion-card-content>
+          </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- FRUIT -->
+    <div *ngIf="mealPlanner.breakfast.fruit.name != 'none'">
+      <ion-row>
+        <ion-col auto>
+          <ion-card-content>
+              <h2>{{mealPlanner.breakfast.fruit.name}}</h2>
+          </ion-card-content>
+        </ion-col>
+          <ion-col col-5>
+            <ion-card-content>
+                <h2>Grams: {{mealPlanner.breakfast.fruit.grams}}</h2>
+            </ion-card-content>
+          </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- DRINK -->
+    <div *ngIf="mealPlanner.breakfast.drink.name != 'none'">
+      <ion-row>
+        <ion-col auto>
+          <ion-card-content>
+              <h2>{{mealPlanner.breakfast.drink.name}}</h2>
+          </ion-card-content>
+        </ion-col>
+          <ion-col col-5>
+            <ion-card-content>
+                <h2>Grams: {{mealPlanner.breakfast.drink.grams}}</h2>
+            </ion-card-content>
+          </ion-col>
+      </ion-row>
+    </div>
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
-            <button ion-button large color="secondary" (click)="mealPost()">
+            <button ion-button large color="secondary" (click)="say()">
               <ion-icon name="ios-add-circle-outline" large></ion-icon>
             </button>
         </ion-col>
@@ -44,6 +124,12 @@
   </ion-grid>
   </ion-card>
 
+
+
+
+
+
+  <!-- LUNCH -->
   <ion-card>
       <ion-card-header>
           <ion-row>
@@ -56,15 +142,85 @@
           </ion-row>
         </ion-card-header>
   <ion-grid>
-      <ion-row>
-        <ion-col>
-            
-             <ion-card-content>
-              <h2 *ngFor="let meal of lunchMeal; let i=index">{{i+1}}.{{meal}}</h2>
-               
-             </ion-card-content>
-        </ion-col>
-      </ion-row>
+      <!-- MAIN FOOD -->
+    <div *ngIf="mealPlanner.lunch.protein.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.lunch.protein.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.lunch.protein.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- CARBS -->
+      <div *ngIf="mealPlanner.lunch.carbs.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.lunch.carbs.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.lunch.carbs.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>      
+      </div>
+  
+      <!-- VEGATABLES -->
+      <div *ngIf="mealPlanner.lunch.veg.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.lunch.veg.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.lunch.veg.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- FRUIT -->
+      <div *ngIf="mealPlanner.lunch.fruit.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.lunch.fruit.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.lunch.fruit.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- DRINK -->
+      <div *ngIf="mealPlanner.lunch.drink.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.lunch.drink.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.lunch.drink.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
@@ -81,6 +237,10 @@
   </ion-grid>
   </ion-card>
 
+
+
+
+  <!-- DINER -->
   <ion-card>
       <ion-card-header>
           <ion-row>
@@ -93,14 +253,85 @@
           </ion-row>
         </ion-card-header>
   <ion-grid>
-      <ion-row>
-        <ion-col>
-            
-             <ion-card-content>
-              <h2 *ngFor="let meal of dinnerMeal; let i=index">{{i+1}}.{{meal}}</h2>
-             </ion-card-content>
-        </ion-col>
-      </ion-row>
+     <!-- MAIN FOOD -->
+    <div *ngIf="mealPlanner.dinner.protein.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.dinner.protein.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.dinner.protein.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- CARBS -->
+      <div *ngIf="mealPlanner.dinner.carbs.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.dinner.carbs.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.dinner.carbs.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>      
+      </div>
+  
+      <!-- VEGATABLES -->
+      <div *ngIf="mealPlanner.dinner.veg.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.dinner.veg.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.dinner.veg.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- FRUIT -->
+      <div *ngIf="mealPlanner.dinner.fruit.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.dinner.fruit.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.dinner.fruit.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- DRINK -->
+      <div *ngIf="mealPlanner.dinner.drink.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.dinner.drink.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.dinner.drink.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
@@ -117,6 +348,11 @@
   </ion-grid>
   </ion-card>
 
+
+
+
+
+ <!-- EveningSNack -->
   <ion-card>
       <ion-card-header>
           <ion-row>
@@ -129,14 +365,85 @@
           </ion-row>
         </ion-card-header>
   <ion-grid>
-      <ion-row>
-        <ion-col>
-            
-             <ion-card-content>
-              <h2 *ngFor="let meal of eveMeal; let i=index">{{i+1}}.{{meal}}</h2>
-             </ion-card-content>
-        </ion-col>
-      </ion-row>
+       <!-- MAIN FOOD -->
+    <div *ngIf="mealPlanner.eveSnack.protein.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.eveSnack.protein.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.eveSnack.protein.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- CARBS -->
+      <div *ngIf="mealPlanner.eveSnack.carbs.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.eveSnack.carbs.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.eveSnack.carbs.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>      
+      </div>
+  
+      <!-- VEGATABLES -->
+      <div *ngIf="mealPlanner.eveSnack.veg.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.eveSnack.veg.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.eveSnack.veg.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- FRUIT -->
+      <div *ngIf="mealPlanner.eveSnack.fruit.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.eveSnack.fruit.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.eveSnack.fruit.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
+  
+      <!-- DRINK -->
+      <div *ngIf="mealPlanner.eveSnack.drink.name != 'none'">
+        <ion-row>
+          <ion-col auto>
+            <ion-card-content>
+                <h2>{{mealPlanner.eveSnack.drink.name}}</h2>
+            </ion-card-content>
+          </ion-col>
+            <ion-col col-5>
+              <ion-card-content>
+                  <h2>Grams: {{mealPlanner.eveSnack.drink.grams}}</h2>
+              </ion-card-content>
+            </ion-col>
+        </ion-row>
+      </div>
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>

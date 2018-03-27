@@ -45,7 +45,10 @@ pass:string;
     rate: 0.77
 })
 .then(() => console.log("Success"))
-.catch((err => console.log(err)));
+.catch((err => {
+  this.popUpCntrl.createToastTimer(err.error.message,"bottom",5000);
+  console.log(err)
+}));
 }
 
 startVoiceInput(typeOfInput: string){
@@ -57,6 +60,7 @@ startVoiceInput(typeOfInput: string){
           this.pass = this.voiceInput.deleteWhiteSpace(x);
       },
         err=>{
+          this.popUpCntrl.createToastTimer(err.error.message,"bottom",5000);
           console.log(err);
         },
         ()=>{
@@ -71,6 +75,7 @@ startVoiceInput(typeOfInput: string){
           this.email = this.voiceInput.emailInput(x);
       },
         err=>{
+          this.popUpCntrl.createToastTimer(err.error.message,"bottom",5000);
           console.log(err);
         },
         ()=>{

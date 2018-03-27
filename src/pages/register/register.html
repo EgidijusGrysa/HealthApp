@@ -8,10 +8,10 @@
 
 
 <ion-content padding>
-    <ion-item>
+    <!-- <ion-item>
         <ion-label>Voice Input</ion-label>
         <ion-toggle [(ngModel)]="voiceActive"></ion-toggle>
-      </ion-item>
+      </ion-item> -->
   <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
     <ion-list>
         
@@ -24,8 +24,7 @@
                 </button>
           </ion-col>
           <ion-col>
-              <ion-input 
-              item-left 
+              <ion-input  
               id="name" 
               type="text"
               formControlName="name">

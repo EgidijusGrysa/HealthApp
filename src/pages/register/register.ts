@@ -31,6 +31,7 @@ export class RegisterPage implements OnInit {
   weight:string;
   gender:string;
   messages: Messages;
+  isSelected: boolean;
 
   constructor(private keyboard:Keyboard,
     private helper: HelperService, 
@@ -42,8 +43,9 @@ export class RegisterPage implements OnInit {
     private navCntrl: NavController,
     private app: App) {
     this.messages = new Messages();
-    this.popUpCntrl.createToastWithClose(this.messages.doubleTap,"bottom");
+    //this.popUpCntrl.createToastWithClose(this.messages.doubleTap,"bottom");
     this.voiceActive = false;
+    this.isSelected = false;
   }
 
   SpeakText(text: string){
@@ -66,6 +68,7 @@ export class RegisterPage implements OnInit {
             this.regForm.patchValue({name: this.voiceInput.deleteWhiteSpace(x)});
         },
           err=>{
+            this.popUpCntrl.createToastTimer(err.error.message,"bottom",5000);
             console.log(err);
           },
           ()=>{
@@ -80,6 +83,7 @@ export class RegisterPage implements OnInit {
             this.pass = this.voiceInput.deleteWhiteSpace(x);
         },
           err=>{
+            this.popUpCntrl.createToastTimer(err.error.message,"bottom",5000);
             console.log(err);
           },
           ()=>{
@@ -108,6 +112,7 @@ export class RegisterPage implements OnInit {
             this.age = x;
         },
           err=>{
+            this.popUpCntrl.createToastTimer(err.error.message,"bottom",5000);
             console.log(err);
           },
           ()=>{
@@ -122,6 +127,7 @@ export class RegisterPage implements OnInit {
             this.weight = x;
         },
           err=>{
+            this.popUpCntrl.createToastTimer(err.error.message,"bottom",5000);
             console.log(err);
           },
           ()=>{

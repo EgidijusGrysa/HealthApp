@@ -20,9 +20,9 @@ import { NutritionPage } from '../pages/nutrition/nutrition';
 import { MealPlannerService } from '../services/mealPlanner';
 import { VoiceInputService } from '../services/voiceInput';
 import { PopUpWindowService } from '../services/popUpWindows';
-import { TextToSpeechService } from '../services/text-to-speech';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { HelperService } from '../services/helperClass';
+import Artyom from 'artyom.js/source/artyom';
 
 
 @NgModule({
@@ -64,8 +64,8 @@ import { HelperService } from '../services/helperClass';
     MealPlannerService,
     VoiceInputService,
     PopUpWindowService,
-    TextToSpeechService,
-    HelperService
+    HelperService,
+    Artyom
   ]
 })
 export class AppModule {}

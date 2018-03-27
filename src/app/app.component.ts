@@ -21,7 +21,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, 
     splashScreen: SplashScreen
    ) {
-     this.tabsPage = TabsPage;
+     this.tabsPage = MainMenuTabsPage;
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

@@ -4,9 +4,7 @@ import { FoodGroups } from "../data/foodGroups";
 import { Food } from "../data/food";
 import { FoodNutritionService } from "../services/foodNutrition";
 import { Observable } from "rxjs/Observable";
-import { race } from "rxjs/operator/race";
-import { concat } from "rxjs/operators/concat";
-import { LoadingController } from "ionic-angular/components/loading/loading-controller";
+
 import { Headers } from "@angular/http";
 import { Http } from "@angular/http";
 import { Response } from "@angular/http/src/static_response";
@@ -15,14 +13,21 @@ import { Response } from "@angular/http/src/static_response";
 export class MealPlannerService{
     totalCalories: number;
     foodGroup:FoodGroups;
+
+    //displayed meals
     breakfast: Meal;
     lunch: Meal;
     dinner: Meal;
     eveSnack: Meal;
+
+    //old meals to check against
+    oldBreak: Meal;
+    oldLunch: Meal;
+    oldDinner: Meal;
+    oldEveSnack: Meal;
     
     
     constructor(private getNut: FoodNutritionService,
-        private loadingCntrl: LoadingController,
         private http: Http){
         
         this.foodGroup = new FoodGroups();
@@ -30,6 +35,12 @@ export class MealPlannerService{
         this.lunch = new Meal();
         this.dinner = new Meal();
         this.eveSnack = new Meal();
+        
+        this.oldBreak = new Meal();
+        this.oldLunch = new Meal();
+        this.oldDinner = new Meal();
+        this.oldEveSnack = new Meal();
+
         this.populateBreakfast();
         this.populateLunch();
         this.populateDiner();
@@ -37,17 +48,26 @@ export class MealPlannerService{
         
     }
     
-    
 
+
+//Populates breakfast (random) does not populate the same main part of the meal the second time.
 populateBreakfast()
 {
-    this.breakfast.protein=this.randomFood(this.foodGroup.breakfast.protein)
+    this.breakfast.protein=this.randomFood(this.foodGroup.breakfast.protein);
+
+    if(this.oldBreak.protein.name != "none"){
+        if(this.oldBreak.protein.name == this.breakfast.protein.name){
+            this.populateBreakfast();
+            return;
+        }
+    }
+         
     if(this.breakfast.protein.name.includes("egg")){
         this.breakfast.name = "Scrambled or boiled eggs";
-        this.breakfast.carbs=this.randomFood(this.foodGroup.breakfast.carbs)
-        this.breakfast.drink=this.randomFood(this.foodGroup.breakfast.drink)
-        this.breakfast.veg=this.randomFood(this.foodGroup.breakfast.veg)
-        this.breakfast.fruit=this.randomFood(this.foodGroup.breakfast.fruit)
+        this.breakfast.carbs=this.randomFood(this.foodGroup.breakfast.carbs);
+        this.breakfast.drink=this.randomFood(this.foodGroup.breakfast.drink);
+        this.breakfast.veg=this.randomFood(this.foodGroup.breakfast.veg);
+        this.breakfast.fruit=this.randomFood(this.foodGroup.breakfast.fruit);
         
     }
     else if(this.breakfast.protein.name.includes("oats")){
@@ -57,10 +77,28 @@ populateBreakfast()
         this.breakfast.drink=this.randomFood(this.foodGroup.breakfast.drink)        
     }
     
-    
+    this.oldBreak = this.breakfast;
+        
+      
 }
     populateLunch(){
         this.lunch.protein = this.randomFood(this.foodGroup.lunch.protein);
+
+        
+
+        if(this.oldLunch.protein.name != "none"){
+            if(this.oldLunch.protein.name == this.lunch.protein.name ){
+                this.populateLunch();
+                return;
+            }
+
+            if(this.eveSnack.protein.name == this.lunch.protein.name){
+                this.populateLunch();
+                return;
+            }
+        }
+
+        
 
         if(this.lunch.protein.name.includes("Greek")){
             this.lunch.fruit = this.randomFood(this.foodGroup.lunch.fruit);
@@ -74,18 +112,35 @@ populateBreakfast()
         }else if(this.lunch.protein.name.includes("nuts")){
             this.lunch.fruit = this.randomFood(this.foodGroup.lunch.fruit);
         }
-               
+        
+        this.oldLunch = this.lunch;
     }
     populateDiner(){
+
         this.dinner.protein = this.randomFood(this.foodGroup.dinner.protein);
+
+        if(this.oldDinner.protein.name != "none"){
+            if(this.oldDinner.protein.name == this.dinner.protein.name ){
+                this.populateDiner();
+                return;
+            }
+        }
+        
         this.dinner.carbs = this.randomFood(this.foodGroup.dinner.carbs);
         this.dinner.veg = this.randomFood(this.foodGroup.dinner.veg);
         this.dinner.drink = this.randomFood(this.foodGroup.dinner.drink);
-        
 
+        this.oldDinner = this.dinner;
     }
     populateEveSnack(){
         this.eveSnack.protein = this.randomFood(this.foodGroup.eveSnack.protein);
+
+        if(this.oldEveSnack.protein.name != "none"){
+            if(this.oldEveSnack.protein.name == this.oldEveSnack.protein.name ){
+                this.populateDiner();
+                return;
+            }
+        }
         
         if(this.eveSnack.protein.name === this.lunch.protein.name){
             this.populateEveSnack();
@@ -105,7 +160,7 @@ populateBreakfast()
             this.eveSnack.fruit = this.randomFood(this.foodGroup.eveSnack.fruit);
         }
         
-        
+        this.oldEveSnack = this.eveSnack;
     }
     
     mealPlanToString(returnIDs: boolean,meal: Meal){

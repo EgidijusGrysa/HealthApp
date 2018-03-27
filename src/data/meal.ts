@@ -9,8 +9,8 @@ export class Meal{
     carbs: Food;
     protein: Food;
     fat: string;
-userID
-   constructor(name?: string,callories?: number, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food,userID?:string){
+
+   constructor(name?: string,callories?: number, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food){
        let emptyFood = new Food("none","none",0,0,"none");
         this.name = name || "none";
         this.callories = callories || 0;
@@ -19,7 +19,7 @@ userID
         this.fruit=fruit || emptyFood;
         this.carbs=carbs || emptyFood;
         this.protein= protein || emptyFood;
-        this.userID = userID || "none";
+        
         
    }
      

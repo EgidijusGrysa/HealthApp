@@ -6,9 +6,9 @@ import { LoadingController } from 'ionic-angular/components/loading/loading-cont
 import { FoodNutritionService } from '../../services/foodNutrition';
 import { NutritionPage } from '../nutrition/nutrition';
 import { VoiceInputService } from '../../services/voiceInput';
-import { TextToSpeechService } from '../../services/text-to-speech';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { HelperService } from '../../services/helperClass';
+import Artyom from '../../../node_modules/artyom.js/source/artyom';
 
 
 
@@ -24,7 +24,7 @@ export class MainMenuPage {
   dinnerMeal: string[];
   eveMeal: string[];
   userID: string;
-  userCalls: string;
+  userCalls: string; 
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -33,18 +33,25 @@ export class MainMenuPage {
     private foodNutrition: FoodNutritionService,
     private voiceCntrl: VoiceInputService,
     private tts: TextToSpeech,
-    private helper: HelperService) {
+    private helper: HelperService,
+    private artyomCntrl: Artyom) {
     
       this.totalCalories = 0;
       
       this.breakfastMeal = [""];
       if(this.helper.cameFromRegister){ this.acceptFood(); }
       if(this.helper.cameFromLogin) { this.getMealForLoggedUser(); }
-      
+      this.acceptFood();
       this.userID = localStorage.getItem("userId");
       this.userCalls = localStorage.getItem("callories");
       
   }
+
+  say()
+{
+    
+    this.artyomCntrl.say("hello world");
+}
   SpeakText(text: string[]){
     let x = "";
     text.forEach(element => {
@@ -157,7 +164,7 @@ export class MainMenuPage {
   postMeal(string:String){
       switch(string){
           case 'b':
-          this.mealPlanner.breakfast.userID = this.userID;
+          
           this.mealPlanner.postMeal(this.mealPlanner.breakfast)
           .subscribe(
             data=> {
