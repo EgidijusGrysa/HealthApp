@@ -77,6 +77,10 @@ export class MainMenuPage {
         });
   }
 
+  ionViewWillEnter(){
+      
+  }
+
   checkResult(speechItem:string){
       let arr;
       let first;
@@ -102,7 +106,7 @@ export class MainMenuPage {
                     this.resetVoice_Lisener();
                 }else if(second =="decline"){
                     this.changeMeal("b");
-                    tthis.resetVoice_Lisener();
+                    this.resetVoice_Lisener();
                 }
             break;
             case "lunch":
@@ -123,7 +127,7 @@ export class MainMenuPage {
                     this.resetVoice_Lisener();
                 }
             break;
-            case "evening" || "snack":
+            case "evening":
                 if(second == "accept"){
                     console.log("accepted snack");
                     this.resetVoice_Lisener();
@@ -132,9 +136,21 @@ export class MainMenuPage {
                     this.resetVoice_Lisener();
                 }
             break;
-            case "nutrients" || "nutrition":
+            case "snack":
+                if(second == "accept"){
+                    console.log("accepted snack");
+                    this.resetVoice_Lisener();
+                }else if(second =="decline"){
+                    this.changeMeal("e");
+                    this.resetVoice_Lisener();
+                }
+            break;
+            case "nutrients":
                 console.log("went to nutrients")
                 this.app.getRootNav().getActiveChildNav().select(1);
+            break;
+            case "nutrition":
+            this.app.getRootNav().getActiveChildNav().select(1);
             break;
             default:
             console.log("No matches found try again");
