@@ -22,7 +22,6 @@ import { VoiceInputService } from '../services/voiceInput';
 import { PopUpWindowService } from '../services/popUpWindows';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { HelperService } from '../services/helperClass';
-import Artyom from 'artyom.js/source/artyom';
 
 
 @NgModule({
@@ -64,8 +63,7 @@ import Artyom from 'artyom.js/source/artyom';
     MealPlannerService,
     VoiceInputService,
     PopUpWindowService,
-    HelperService,
-    Artyom
+    HelperService
   ]
 })
 export class AppModule {}

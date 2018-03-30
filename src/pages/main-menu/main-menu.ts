@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { MealPlannerService } from '../../services/mealPlanner';
 import { Meal } from '../../data/meal';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
@@ -8,7 +8,7 @@ import { NutritionPage } from '../nutrition/nutrition';
 import { VoiceInputService } from '../../services/voiceInput';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { HelperService } from '../../services/helperClass';
-import Artyom from '../../../node_modules/artyom.js/source/artyom';
+
 
 
 
@@ -34,7 +34,7 @@ export class MainMenuPage {
     private voiceCntrl: VoiceInputService,
     private tts: TextToSpeech,
     private helper: HelperService,
-    private artyomCntrl: Artyom) {
+    private app: App) {
     
       this.totalCalories = 0;
       
@@ -66,27 +66,89 @@ export class MainMenuPage {
   voiceInputLisen_Background(){
     this.voiceCntrl.startLisening_NoUI().subscribe(
         data=>{
-            console.log(data);
-          this.checkResult(data);
+            console.log("Words Spoke ====> " +data);
+            this.checkResult(data);
       },
         err=>{
-            console.log(err);
+            console.log("Voicer Error: " + err);
+            setTimeout(()=>{
+                this.voiceInputLisen_Background();   
+            },1000);
         });
   }
 
   checkResult(speechItem:string){
-    let result = this.voiceCntrl.findMatch(speechItem,this.voiceCntrl.speechList);
-    console.log(result);
-    if(result != null){
-        switch(result) {
-            case "decline breakfast":
-            this.changeMeal("b");
+      let arr;
+      let first;
+      let second;
+      console.log("inside checkResult ===>" + speechItem)
+    
+      //checks if there is more then 1 word in a speechIitem
+    if(this.voiceCntrl.hasTwoWords(speechItem)){
+        console.log("Has 2 words");
+        arr = speechItem.split(' ');
+        first = arr[0];
+        second = arr[1];
+    }else{
+        first = speechItem;
+        console.log("has 1 word");
+    }
+    
+    if(first != null){
+        switch(first) {
+            case "breakfast":
+                if(second == "accept"){
+                    console.log("accepted breakfast");
+                    this.resetVoice_Lisener();
+                }else if(second =="decline"){
+                    this.changeMeal("b");
+                    tthis.resetVoice_Lisener();
+                }
+            break;
+            case "lunch":
+                if(second == "accept"){
+                    console.log("accepted lunch");
+                    this.resetVoice_Lisener();
+                }else if(second =="decline"){
+                    this.changeMeal("l");
+                    this.resetVoice_Lisener();
+                }
+            break;
+            case "dinner":
+                if(second == "accept"){
+                    console.log("accepted dinner");
+                    this.resetVoice_Lisener();
+                }else if(second =="decline"){
+                    this.changeMeal("d");
+                    this.resetVoice_Lisener();
+                }
+            break;
+            case "evening" || "snack":
+                if(second == "accept"){
+                    console.log("accepted snack");
+                    this.resetVoice_Lisener();
+                }else if(second =="decline"){
+                    this.changeMeal("e");
+                    this.resetVoice_Lisener();
+                }
+            break;
+            case "nutrients" || "nutrition":
+                console.log("went to nutrients")
+                this.app.getRootNav().getActiveChildNav().select(1);
+            break;
+            default:
+            console.log("No matches found try again");
+            this.resetVoice_Lisener();
             break;
         }
-    }    
-   
-    
+    }  
 }
+
+    resetVoice_Lisener(){
+        setTimeout(()=>{
+            this.voiceInputLisen_Background();   
+        },1000);
+    }
 
   updateMeal(){
     var obj = new Object({

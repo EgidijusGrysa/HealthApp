@@ -4,12 +4,16 @@ import { ModalController } from "ionic-angular/components/modal/modal-controller
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
 import { Observable } from "rxjs/Observable";
 
+
+
 @Injectable()
 export class VoiceInputService{
+    
     speechList: Array<string> = [];
-    userInput:string[] = ["App nutrients","App main menu","decline breakfast"];
+    userInput:string[] = ["App nutrients","App main menu","decline breakfast","app"];
     option: SpeechRecognitionListeningOptions;
     showPopup: boolean;
+    
     constructor(private speech:SpeechRecognition,private alertCntrl:AlertController){
         
         this.option = {
@@ -21,9 +25,23 @@ export class VoiceInputService{
         return this.speech.isRecognitionAvailable();    
     }
 
-    findMatch(string:string,arr:string[]){
+    hasPermision():Promise<boolean>{
+        return this.speech.hasPermission();
+    }
+
+    hasTwoWords(string: string){
+        var val = string.split(' ');
+        if(val.length>1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    findMatch(string:string){
         let x = "";
-        arr.forEach(element => {
+        
+        this.userInput.forEach(element => {
                 if(element.includes(string)){
                     x = element;
                     
@@ -33,18 +51,27 @@ export class VoiceInputService{
     }
 
     startLisening_NoUI(){
-        if(this.isSpeechAvailable){
-            return this.speech.startListening(this.option).map(data=>{
-                 return data[0];
-             },
-             err => {
-                 console.log(err);
-             });
+        this.speech.requestPermission().then(
+            ()=> {
+                console.log("permission granted");
+                //this.startLisening_NoUI();
+            },
+            ()=> console.log("permision denies")
+        );
+        if(this.isSpeechAvailable()){
+            if(this.hasPermision()){
+                return this.speech.startListening(this.option).map(data=>{
+                    return data[0];
+                },
+                err => {
+                    console.log(err);
+                });
+            }
          }
     }
 
     startLisening(){
-        if(this.isSpeechAvailable){
+        if(this.isSpeechAvailable()){
            return this.speech.startListening().map(data=>{
                 return data[0];
             },
