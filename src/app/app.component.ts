@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -12,14 +12,18 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { MainMenuTabsPage } from '../pages/main-menu-tabs/main-menu-tabs';
 import { RegisterPage } from '../pages/register/register';
 import { NutritionPage } from '../pages/nutrition/nutrition';
+import { SettingsPage } from '../pages/settings/settings';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   tabsPage: any;
+  settingsPage: SettingsPage;
+ // @ViewChild('nav') nav:NavController;
 
   constructor(platform: Platform, statusBar: StatusBar, 
-    splashScreen: SplashScreen
+    splashScreen: SplashScreen,
+    private menu: MenuController
    ) {
      this.tabsPage = MainMenuTabsPage;
     platform.ready().then(() => {
@@ -28,11 +32,12 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+}
+// onLoad(page: any){
+//   this.nav.setRoot(page);
+//   this.menu.close();
+// }
 
-    
 
-  }
-
-  
 }
 

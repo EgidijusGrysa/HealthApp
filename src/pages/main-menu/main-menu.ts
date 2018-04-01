@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, App, MenuController } from 'ionic-angular';
 import { MealPlannerService } from '../../services/mealPlanner';
 import { Meal } from '../../data/meal';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
@@ -24,7 +24,9 @@ export class MainMenuPage {
   dinnerMeal: string[];
   eveMeal: string[];
   userID: string;
-  userCalls: string; 
+  userCalls: string;
+  
+  @ViewChild('nav') nav:NavController;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -34,6 +36,7 @@ export class MainMenuPage {
     private voiceCntrl: VoiceInputService,
     private tts: TextToSpeech,
     private helper: HelperService,
+    private menu: MenuController,
     private app: App) {
     
       this.totalCalories = 0;
@@ -45,6 +48,11 @@ export class MainMenuPage {
       this.userID = localStorage.getItem("userId");
       this.userCalls = localStorage.getItem("callories");
       
+  }
+
+  onLoad(page: any){
+    this.nav.setRoot(page);
+    this.menu.close();
   }
 
 
@@ -386,7 +394,7 @@ export class MainMenuPage {
       this.MealsToString();    
 
       loading.dismiss();
-      this.voiceInputLisen_Background();
+      //this.voiceInputLisen_Background();
       this.mealPost();
   });
   }

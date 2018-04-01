@@ -22,6 +22,7 @@ import { VoiceInputService } from '../services/voiceInput';
 import { PopUpWindowService } from '../services/popUpWindows';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { HelperService } from '../services/helperClass';
+import { SettingsPage } from '../pages/settings/settings';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { HelperService } from '../services/helperClass';
     LoginPage,
     TabsPage,
     MainMenuTabsPage,
-    NutritionPage
+    NutritionPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ import { HelperService } from '../services/helperClass';
     LoginPage,
     TabsPage,
     MainMenuTabsPage,
-    NutritionPage
+    NutritionPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
