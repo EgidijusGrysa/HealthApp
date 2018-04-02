@@ -136,8 +136,8 @@ populateBreakfast()
         this.eveSnack.protein = this.randomFood(this.foodGroup.eveSnack.protein);
 
         if(this.oldEveSnack.protein.name != "none"){
-            if(this.oldEveSnack.protein.name == this.oldEveSnack.protein.name ){
-                this.populateDiner();
+            if(this.eveSnack.protein.name == this.oldEveSnack.protein.name ){
+                this.populateEveSnack();
                 return;
             }
         }
