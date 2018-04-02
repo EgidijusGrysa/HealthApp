@@ -7,26 +7,47 @@
     <ion-content>
         <ion-list>
                 
-                        <ion-grid>
-                          <ion-row>
-                            <ion-col>
-                              <ion-label>Speech Input</ion-label>
-                            </ion-col>
-                            <ion-col>
-                              <ion-toggle (ionChange)="toggleSpeechInput($event)" [checked]="checkInput()"></ion-toggle>
-                            </ion-col>
-                        </ion-row>
-                            <ion-row>
-                            <ion-col>
-                                <ion-label>Speech Output</ion-label>
-                              </ion-col>
-                              <ion-col>
-                                <ion-toggle (ionChange)="toggleSpeechOutput($event)" [checked]="checkOutput()"></ion-toggle>
-                              </ion-col>
-                            </ion-row>
-                          
-                        </ion-grid>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  <ion-label>Speech Input</ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-toggle (ionChange)="toggleSpeechInput($event)" [checked]="checkInput()"></ion-toggle>
+                </ion-col>
+            </ion-row>
+                <ion-row>
+                <ion-col>
+                    <ion-label>Speech Output</ion-label>
+                  </ion-col>
+                  <ion-col>
+                    <ion-toggle (ionChange)="toggleSpeechOutput($event)" [checked]="checkOutput()"></ion-toggle>
+                  </ion-col>
+                </ion-row>
+              
+            </ion-grid>
                         
+        </ion-list>
+        <ion-list>
+            <h1 text-center>Voice Commands</h1>
+            <ul>
+                <li>Breakfast-Decline</li>
+                <li>Breakfast-Accept</li>
+                <p></p>
+                <li>Lunch-Decline</li>
+                <li>Lunch-Accept</li>
+                <p></p>
+                <li>Dinner-Decline</li>
+                <li>Dinner-Accept</li>
+                <p></p>
+                <li>Snack-Decline</li>
+                <li>Snack-Accept</li>
+                <hr>
+                <li>Nutrition</li>
+                <li>Back</li>
+                <hr>
+                <li>Logout</li>
+            </ul>
         </ion-list>
     </ion-content>
 </ion-menu>
