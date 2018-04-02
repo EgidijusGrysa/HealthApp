@@ -1,27 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { MealPlannerService } from '../../services/mealPlanner';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { VoiceInputService } from '../../services/voiceInput';
 import { SettingsService } from '../../services/settings';
 
-/**
- * Generated class for the NutritionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import * as d3 from 'd3-selection';
+import * as d3Scale from 'd3-scale';
+import * as d3Shape from 'd3-shape';
 
 @IonicPage()
 @Component({
   selector: 'page-nutrition',
   templateUrl: 'nutrition.html',
 })
-export class NutritionPage {
+export class NutritionPage implements OnInit{
+  //d3 stuff
+  private width: number = 900;
+  private height: number= 500;
+  private radius: number;
+
+  private arc: any;
+  private labelArc: any;
+  private pie: any;
+  private color: any;
+  private svg: any;
+
   vitaminB12: any;
   calcium: any;
   fibre:any;
   omega:any;
+  
+  calloryDistrubution: any[] = [
+    {name:"Protein",calories:200},
+    {name:"Carbohydrates",calories:400},
+    {name:"Fats",calories:100}
+  ];
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -31,6 +45,47 @@ export class NutritionPage {
     private app: App,
     private settings: SettingsService) {
     this.vitaminB12 = 0;
+    this.radius = Math.min(this.width,this.height)/2;
+  }
+
+  ngOnInit(){
+    console.log("Chart should be displayed");
+    
+  }
+
+  private initSvg(){
+    // colors for the chart
+    this.color = d3Scale.scaleOrdinal().range(["#98abc5", "#8a89a6", "#7b6888"]);
+    //the size of the chart
+    this.arc = d3Shape.arc().outerRadius(this.radius-20).innerRadius(0);
+    //the radius of text inside the chart
+    this.labelArc = d3Shape.arc()
+    .outerRadius(this.radius - 100)
+    .innerRadius(this.radius - 50);
+    //data for the chart
+    this.pie = d3Shape.pie().sort(null).value((x:any)=>x.calories);
+
+    //set size for svg
+    this.svg = d3.select("svg")
+            .attr("width", '100%')
+            .attr("height", '100%')
+            .attr('viewBox','0 0 '+Math.min(this.width,this.height)+' '+Math.min(this.width,this.height))
+            .append("g")
+            .attr("transform", "translate(" + Math.min(this.width,this.height) / 2 + "," + Math.min(this.width,this.height) / 2 + ")");
+  
+
+  }
+
+  private drawPieChart(){
+    let g = this.svg.selectAll(".arc")
+    .data(this.pie(this.calloryDistrubution))
+    .enter().append("g")
+    .attr("class",this.arc);
+    g.append("path").attr("d",this.arc).style("fill",(x:any)=>this.color(x.data.name));
+
+    g.append("text").attr("transform", (d: any) => "translate(" + this.labelArc.centroid(d) + ")")
+                    .attr("dy", ".35em").text((d: any) => d.data.name);
+
   }
 
   voiceInputLisen_Background(){
@@ -117,6 +172,16 @@ export class NutritionPage {
     +this.mealPlanner.calcCalories("n",this.mealPlanner.dinner,"646")
     +this.mealPlanner.calcCalories("n",this.mealPlanner.eveSnack,"646"));console.log("did enter nut page");
     this.omega = o.toFixed(1);
+
+    this.calloryDistrubution = [
+      {name:"Protein",calories:this.mealPlanner.getProteinCalories()},
+      {name:"Carbohydrates",calories:this.mealPlanner.getCarbsCalories()},
+      {name:"Fats",calories:this.mealPlanner.getFatCalories()}
+    ];
+    console.log(this.calloryDistrubution);
+    this.initSvg();
+    this.drawPieChart();
+  
 
     //this.voiceInputLisen_Background();
   }

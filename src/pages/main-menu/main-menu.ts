@@ -305,6 +305,7 @@ export class MainMenuPage {
             "c",
             this.mealPlanner.breakfast,
           "208");
+          this.mealPlanner.calculateCalorie_Distrubution();
         this.breakfastMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.breakfast);
         loading.dismiss();
         
@@ -329,6 +330,7 @@ export class MainMenuPage {
         "c",
         this.mealPlanner.lunch,
       "208");
+      this.mealPlanner.calculateCalorie_Distrubution();
   this.lunchMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.lunch);
   loading.dismiss();
   
@@ -352,6 +354,7 @@ export class MainMenuPage {
         "c",
         this.mealPlanner.dinner,
       "208");
+      this.mealPlanner.calculateCalorie_Distrubution();
   this.dinnerMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.dinner);
   loading.dismiss();
   
@@ -375,6 +378,7 @@ export class MainMenuPage {
         "c",
         this.mealPlanner.eveSnack,
       "208");
+      this.mealPlanner.calculateCalorie_Distrubution();
   this.eveMeal = this.mealPlanner.mealPlanToString(false,this.mealPlanner.eveSnack);
   loading.dismiss();
   
@@ -429,7 +433,7 @@ export class MainMenuPage {
             "c",
             this.mealPlanner.eveSnack,
           "208");
-    
+            this.mealPlanner.calculateCalorie_Distrubution();
       this.populateNutrient_Vars();
       
       console.log(this.totalCalories);

@@ -25,6 +25,10 @@ export class MealPlannerService{
     oldLunch: Meal;
     oldDinner: Meal;
     oldEveSnack: Meal;
+
+    private carbCalories: any;
+    private proteinCalories: any;
+    private fatCalories:any;
     
     
     constructor(private getNut: FoodNutritionService,
@@ -162,6 +166,34 @@ populateBreakfast()
         
         this.oldEveSnack = this.eveSnack;
     }
+
+    calculateCalorie_Distrubution(){
+        let carbs = this.calcCalories("n",this.breakfast,"205")
+        +   this.calcCalories("n",this.lunch,"205")
+        +   this.calcCalories("n",this.dinner,"205")
+        +   this.calcCalories("n",this.eveSnack,"205");
+
+        let sugar = this.calcCalories("n",this.breakfast,"269")
+        +   this.calcCalories("n",this.lunch,"269")
+        +   this.calcCalories("n",this.dinner,"269")
+        +   this.calcCalories("n",this.eveSnack,"269");
+
+        let protein = this.calcCalories("n",this.breakfast,"203")
+        +   this.calcCalories("n",this.lunch,"203")
+        +   this.calcCalories("n",this.dinner,"203")
+        +   this.calcCalories("n",this.eveSnack,"203");
+
+        let fats = this.calcCalories("n",this.breakfast,"204")
+        +   this.calcCalories("n",this.lunch,"204")
+        +   this.calcCalories("n",this.dinner,"204")
+        +   this.calcCalories("n",this.eveSnack,"204");
+
+        
+
+        this.carbCalories = carbs *4;
+        this.proteinCalories = protein *4;
+        this.fatCalories = fats *9;
+    }
     
     mealPlanToString(returnIDs: boolean,meal: Meal){
         let stringMeal: string[]=[];
@@ -284,6 +316,16 @@ populateBreakfast()
 
     randomNum(max){
         return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    getProteinCalories(){
+        return this.proteinCalories;
+    }
+    getCarbsCalories(){
+        return this.carbCalories;
+    }
+    getFatCalories(){
+        return this.fatCalories;
     }
 
     getCurrentMealForUser(){
