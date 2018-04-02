@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Toggle } from 'ionic-angular';
+import { SettingsService } from '../../services/settings';
 
-/**
- * Generated class for the SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
@@ -15,11 +11,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private settings: SettingsService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
+
+  toggleSpeechInput(toggle: Toggle){
+    this.settings.setSpeechInput(toggle.checked);
   }
+
+  toggleSpeechOutput(toggle:Toggle){
+    this.settings.setSpeechOutput(toggle.checked);
+  }
+
+  checkInput(){
+    return this.settings.isSpeechInput_ON();
+  }
+
+  checkOutput(){
+    return this.settings.isSpeechOutput_ON();
+  }
+  
 
 }

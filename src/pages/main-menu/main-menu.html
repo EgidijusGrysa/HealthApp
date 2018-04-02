@@ -1,11 +1,11 @@
 <ion-header>
 
     <ion-navbar>
-      <ion-buttons>
+      
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
-    </ion-buttons>
+    
       <ion-title text-center>Menu</ion-title>
     </ion-navbar>
   
@@ -14,7 +14,9 @@
 
 
 <ion-content padding>
-  <h1 
+  <h1
+  class="fixed_cal"
+  ion-fixed
   (click)="SpeakText(['Calories you have consumed to day is ' + totalCalories + ' out of ' + userCalls])"
   text-center>
   Calories: {{totalCalories}}/{{userCalls}}

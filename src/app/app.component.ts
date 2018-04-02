@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController } from 'ionic-angular';
+import { Platform, MenuController, Toggle } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,6 +13,7 @@ import { MainMenuTabsPage } from '../pages/main-menu-tabs/main-menu-tabs';
 import { RegisterPage } from '../pages/register/register';
 import { NutritionPage } from '../pages/nutrition/nutrition';
 import { SettingsPage } from '../pages/settings/settings';
+import { SettingsService } from '../services/settings';
 @Component({
   templateUrl: 'app.html'
 })
@@ -23,7 +24,9 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, 
     splashScreen: SplashScreen,
-    private menu: MenuController
+    private menu: MenuController,
+    private settings:SettingsService,
+    
    ) {
      this.tabsPage = MainMenuTabsPage;
     platform.ready().then(() => {
@@ -37,6 +40,22 @@ export class MyApp {
 //   this.nav.setRoot(page);
 //   this.menu.close();
 // }
+
+toggleSpeechInput(toggle: Toggle){
+  this.settings.setSpeechInput(toggle.checked);
+}
+
+toggleSpeechOutput(toggle:Toggle){
+  this.settings.setSpeechOutput(toggle.checked);
+}
+
+checkInput(){
+  return this.settings.isSpeechInput_ON();
+}
+
+checkOutput(){
+  return this.settings.isSpeechOutput_ON();
+}
 
 
 }

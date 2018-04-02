@@ -8,6 +8,7 @@ import { NutritionPage } from '../nutrition/nutrition';
 import { VoiceInputService } from '../../services/voiceInput';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { HelperService } from '../../services/helperClass';
+import { SettingsService } from '../../services/settings';
 
 
 
@@ -37,7 +38,8 @@ export class MainMenuPage {
     private tts: TextToSpeech,
     private helper: HelperService,
     private menu: MenuController,
-    private app: App) {
+    private app: App,
+    private settings:SettingsService) {
     
       this.totalCalories = 0;
       
@@ -57,36 +59,43 @@ export class MainMenuPage {
 
 
   SpeakText(text: string[]){
-    let x = "";
-    text.forEach(element => {
-        x += element + " ,    ";
-    });
-    this.tts.speak({
-        text: x,
-        locale: 'en-GB',
-        rate: 0.77
-    })
-    .then(() => console.log("Success"))
-    .catch((err => console.log(err)));
+    console.log("Speech output: " + this.settings.isSpeechOutput_ON());
+    if(this.settings.isSpeechOutput_ON()){
+            let x = "";
+        text.forEach(element => {
+            x += element + " ,    ";
+        });
+        this.tts.speak({
+            text: x,
+            locale: 'en-GB',
+            rate: 0.77
+        })
+        .then(() => console.log("Success"))
+        .catch((err => console.log(err)));
+    }
 }
   
 
   voiceInputLisen_Background(){
-    this.voiceCntrl.startLisening_NoUI().subscribe(
-        data=>{
-            console.log("Words Spoke ====> " +data);
-            this.checkResult(data);
-      },
-        err=>{
-            console.log("Voicer Error: " + err);
-            setTimeout(()=>{
-                this.voiceInputLisen_Background();   
-            },1000);
-        });
+    console.log("Speech input: " + this.settings.isSpeechInput_ON());
+      if(this.settings.isSpeechInput_ON()){
+        this.voiceCntrl.startLisening_NoUI().subscribe(
+            data=>{
+                console.log("Words Spoke ====> " +data);
+                this.checkResult(data);
+          },
+            err=>{
+                console.log("Voicer Error: " + err);
+                setTimeout(()=>{
+                    this.voiceInputLisen_Background();   
+                },1000);
+            });
+      }
+    
   }
 
   ionViewWillEnter(){
-      
+      console.log("ENtered back to menu");
   }
 
   checkResult(speechItem:string){

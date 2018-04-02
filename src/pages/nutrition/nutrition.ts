@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { MealPlannerService } from '../../services/mealPlanner';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { VoiceInputService } from '../../services/voiceInput';
+import { SettingsService } from '../../services/settings';
 
 /**
  * Generated class for the NutritionPage page.
@@ -27,12 +28,14 @@ export class NutritionPage {
     private mealPlanner: MealPlannerService,
     private tts: TextToSpeech,
     private voiceCntrl: VoiceInputService,
-    private app: App) {
+    private app: App,
+    private settings: SettingsService) {
     this.vitaminB12 = 0;
   }
 
   voiceInputLisen_Background(){
-    this.voiceCntrl.startLisening_NoUI().subscribe(
+    if(this.settings.isSpeechInput_ON()){
+      this.voiceCntrl.startLisening_NoUI().subscribe(
         data=>{
             console.log("Words Spoke ====> " +data);
             this.checkResult(data);
@@ -43,6 +46,8 @@ export class NutritionPage {
                 this.voiceInputLisen_Background();   
             },1000);
         });
+    }
+    
   }
 
   checkResult(input: string){
@@ -71,7 +76,8 @@ export class NutritionPage {
 }
 
   SpeakText(text: string, weightString?:string){
-    let newText = text
+    if(this.settings.isSpeechOutput_ON()){
+      let newText = text
     if(weightString != undefined){
       newText += weightString;
     }
@@ -83,6 +89,8 @@ export class NutritionPage {
     })
     .then(() => console.log("Success"))
     .catch((err => console.log(err)));
+    }
+    
 }
 
   ionViewWillEnter(){
@@ -110,7 +118,7 @@ export class NutritionPage {
     +this.mealPlanner.calcCalories("n",this.mealPlanner.eveSnack,"646"));console.log("did enter nut page");
     this.omega = o.toFixed(1);
 
-    this.voiceInputLisen_Background();
+    //this.voiceInputLisen_Background();
   }
 
   
