@@ -130,6 +130,14 @@
           </ion-col>
       </ion-row>
     </div>
+    <ion-row>
+      <ion-col>
+          <h1
+          (click)="SpeakText(['Total calories for breakfast is ' +mealPlanner.breakfast.callories])"
+          text-center>Callories: {{mealPlanner.breakfast.callories}}
+        </h1>
+      </ion-col>
+    </ion-row>
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
@@ -254,6 +262,14 @@
         </ion-row>
       </div>
       <ion-row>
+          <ion-col>
+              <h1
+              (click)="SpeakText(['Total calories for lunch is ' +mealPlanner.lunch.callories])"
+              text-center>Callories: {{mealPlanner.lunch.callories}}
+            </h1>
+          </ion-col>
+        </ion-row>
+      <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
             <button ion-button large color="secondary" (click)="postMeal('l')">
@@ -374,6 +390,14 @@
             </ion-col>
         </ion-row>
       </div>
+      <ion-row>
+          <ion-col>
+              <h1
+              (click)="SpeakText(['Total calories for dinner is ' +mealPlanner.dinner.callories])"
+              text-center>Callories: {{mealPlanner.dinner.callories}}
+            </h1>
+          </ion-col>
+        </ion-row>
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>
@@ -496,6 +520,14 @@
             </ion-col>
         </ion-row>
       </div>
+      <ion-row>
+          <ion-col>
+              <h1
+              (click)="SpeakText(['Total calories for evening snack is ' +mealPlanner.eveSnack.callories])"
+              text-center>Callories: {{mealPlanner.eveSnack.callories}}
+            </h1>
+          </ion-col>
+        </ion-row>
       <ion-row>
         <ion-col col-3></ion-col>
         <ion-col col-auto>

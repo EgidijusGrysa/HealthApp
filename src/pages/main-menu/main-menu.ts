@@ -397,6 +397,23 @@ export class MainMenuPage {
   ()=>{
       
       this.totalCalories = this.mealPlanner.calc_Total_Callories();
+      this.mealPlanner.breakfast.callories = this.mealPlanner.calcCalories(
+          "c",
+          this.mealPlanner.breakfast,
+        "208");
+        this.mealPlanner.lunch.callories = this.mealPlanner.calcCalories(
+            "c",
+            this.mealPlanner.lunch,
+          "208");
+          this.mealPlanner.dinner.callories = this.mealPlanner.calcCalories(
+            "c",
+            this.mealPlanner.dinner,
+          "208");
+          this.mealPlanner.eveSnack.callories = this.mealPlanner.calcCalories(
+            "c",
+            this.mealPlanner.eveSnack,
+          "208");
+    
       this.populateNutrient_Vars();
       
       console.log(this.totalCalories);
