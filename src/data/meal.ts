@@ -2,6 +2,7 @@ import { Food } from "./food";
 
 export class Meal{
     name: string;
+    consumed: boolean;
     callories: number;
     drink: Food;
     veg: Food;
@@ -10,9 +11,10 @@ export class Meal{
     protein: Food;
     fat: string;
 
-   constructor(name?: string,callories?: number, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food){
+   constructor(name?: string,consumed?:boolean,callories?: number, drink?: Food,veg?: Food,fruit?: Food,carbs?: Food,protein?: Food){
        let emptyFood = new Food("none","none",0,0,"none");
         this.name = name || "none";
+        this.consumed = consumed || false;
         this.callories = callories || 0;
         this.drink=drink || emptyFood;
         this.veg=veg || emptyFood;

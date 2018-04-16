@@ -36,6 +36,8 @@
         <div (click)="SpeakText(omega,' grams')" text-center class="col" [ngStyle]="vitaminB12 < 6.0 ? {'background-color':'red'}:{'background-color':'green'}">{{omega}}g</div>
         <div (click)="SpeakText('6 to 9 grams')" text-center class="col">6-9g</div>
     </div>
-    <h1 text-center>Calorie Distribution</h1>
-    <svg width="960" height="500"></svg>
+    
+    <svg width="0" height="0">
+        <text class="text-align">Calorie Distribution</text>
+    </svg>
 </ion-content>

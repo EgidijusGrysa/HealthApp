@@ -26,6 +26,7 @@ export class MainMenuPage {
   eveMeal: string[];
   userID: string;
   userCalls: string;
+  private activeVoiceInput: boolean;
   
   @ViewChild('nav') nav:NavController;
   
@@ -40,13 +41,13 @@ export class MainMenuPage {
     private menu: MenuController,
     private app: App,
     private settings:SettingsService) {
-    
+        this.activeVoiceInput = false;
       this.totalCalories = 0;
       
       this.breakfastMeal = [""];
       if(this.helper.cameFromRegister){ this.acceptFood(); }
       if(this.helper.cameFromLogin) { this.getMealForLoggedUser(); }
-      this.acceptFood();
+      
       this.userID = localStorage.getItem("userId");
       this.userCalls = localStorage.getItem("callories");
       
@@ -78,7 +79,7 @@ export class MainMenuPage {
 
   voiceInputLisen_Background(){
     console.log("Speech input: " + this.settings.isSpeechInput_ON());
-      if(this.settings.isSpeechInput_ON()){
+      if(this.settings.isSpeechInput_ON() && this.voiceCntrl.isSpeechAvailable()){
         this.voiceCntrl.startLisening_NoUI().subscribe(
             data=>{
                 console.log("Words Spoke ====> " +data);
@@ -86,16 +87,20 @@ export class MainMenuPage {
           },
             err=>{
                 console.log("Voicer Error: " + err);
-                setTimeout(()=>{
-                    this.voiceInputLisen_Background();   
-                },1000);
+                // setTimeout(()=>{
+                //     this.voiceInputLisen_Background();   
+                // },1000);
             });
       }
     
   }
 
   ionViewWillEnter(){
+      if(this.activeVoiceInput){
+        this.resetVoice_Lisener();
       console.log("ENtered back to menu");
+      }
+      
   }
 
   checkResult(speechItem:string){
@@ -120,6 +125,7 @@ export class MainMenuPage {
             case "breakfast":
                 if(second == "accept"){
                     console.log("accepted breakfast");
+                    this.updateMeal("b");
                     this.resetVoice_Lisener();
                 }else if(second =="decline"){
                     this.changeMeal("b");
@@ -129,6 +135,7 @@ export class MainMenuPage {
             case "lunch":
                 if(second == "accept"){
                     console.log("accepted lunch");
+                    this.updateMeal("l");
                     this.resetVoice_Lisener();
                 }else if(second =="decline"){
                     this.changeMeal("l");
@@ -138,6 +145,7 @@ export class MainMenuPage {
             case "dinner":
                 if(second == "accept"){
                     console.log("accepted dinner");
+                    this.updateMeal("d");
                     this.resetVoice_Lisener();
                 }else if(second =="decline"){
                     this.changeMeal("d");
@@ -147,6 +155,7 @@ export class MainMenuPage {
             case "evening":
                 if(second == "accept"){
                     console.log("accepted snack");
+                    this.updateMeal("e");
                     this.resetVoice_Lisener();
                 }else if(second =="decline"){
                     this.changeMeal("e");
@@ -183,7 +192,35 @@ export class MainMenuPage {
         },1000);
     }
 
-  updateMeal(){
+    //updates consumed meal accordingly
+  updateMeal(meal:string){
+      switch(meal){
+          case "b":
+          this.mealPlanner.breakfast.consumed = true;
+          this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.breakfast,"208");
+            this.meal();
+          break;
+          case "l":
+          this.mealPlanner.lunch.consumed = true;
+          this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.lunch,"208");
+            this.meal();
+          break;
+          case "d":
+          this.mealPlanner.dinner.consumed = true;
+          this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.dinner,"208");
+            this.meal();
+          break;
+          case "e":
+          this.mealPlanner.eveSnack.consumed = true;
+          this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.eveSnack,"208");
+            this.meal();
+          break;
+      }
+    
+  }
+
+  // updates all meals (could be done better)
+  private meal(){
     var obj = new Object({
         userID: this.userID,
         dayMeal: new Object({
@@ -204,7 +241,6 @@ export class MainMenuPage {
         }
     )
   }
-
   //get the meal for the logged in user after loggin in
   getMealForLoggedUser(){
       let loader = this.loadingCtrl.create({
@@ -220,10 +256,13 @@ export class MainMenuPage {
         console.log(data);
       },err=>{
         console.log(err);
+        loader.dismiss();
       },
     ()=>{
+
         this.MealsToString();
         loader.dismiss();
+        this.acceptFood();
     });
   }
 
@@ -300,7 +339,7 @@ export class MainMenuPage {
             loading.dismiss();
         },
     ()=>{
-        this.totalCalories = this.mealPlanner.calc_Total_Callories();
+        
         this.mealPlanner.breakfast.callories = this.mealPlanner.calcCalories(
             "c",
             this.mealPlanner.breakfast,
@@ -325,7 +364,7 @@ export class MainMenuPage {
       loading.dismiss();
   },
 ()=>{
-    this.totalCalories = this.mealPlanner.calc_Total_Callories();
+    
     this.mealPlanner.lunch.callories = this.mealPlanner.calcCalories(
         "c",
         this.mealPlanner.lunch,
@@ -349,7 +388,7 @@ export class MainMenuPage {
       loading.dismiss();
   },
 ()=>{
-    this.totalCalories = this.mealPlanner.calc_Total_Callories();
+    
     this.mealPlanner.dinner.callories = this.mealPlanner.calcCalories(
         "c",
         this.mealPlanner.dinner,
@@ -373,7 +412,7 @@ export class MainMenuPage {
       loading.dismiss();
   },
 ()=>{
-    this.totalCalories = this.mealPlanner.calc_Total_Callories();
+    
     this.mealPlanner.eveSnack.callories = this.mealPlanner.calcCalories(
         "c",
         this.mealPlanner.eveSnack,
@@ -416,7 +455,20 @@ export class MainMenuPage {
   },
   ()=>{
       
-      this.totalCalories = this.mealPlanner.calc_Total_Callories();
+    // check if foods were consumed, if yes add to total callories
+      if(this.mealPlanner.breakfast.consumed){
+        this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.breakfast,"208");
+      }
+      if(this.mealPlanner.lunch.consumed){
+        this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.lunch,"208");
+      }
+      if(this.mealPlanner.dinner.consumed){
+        this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.dinner,"208");
+      }
+      if(this.mealPlanner.eveSnack.consumed){
+        this.totalCalories += this.mealPlanner.calcCalories("c",this.mealPlanner.eveSnack,"208");
+      }
+
       this.mealPlanner.breakfast.callories = this.mealPlanner.calcCalories(
           "c",
           this.mealPlanner.breakfast,
@@ -440,8 +492,9 @@ export class MainMenuPage {
       this.MealsToString();    
 
       loading.dismiss();
-      //this.voiceInputLisen_Background();
-      this.mealPost();
+      this.voiceInputLisen_Background();
+      //this.mealPost();
+      this.activeVoiceInput = true;
   });
   }
 

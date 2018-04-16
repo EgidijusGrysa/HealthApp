@@ -304,6 +304,7 @@ populateBreakfast()
             y.food.desc.ndbno == id
             
         );
+        console.log(x);
         return x.food.nutrients;
     }
 
@@ -328,10 +329,14 @@ populateBreakfast()
         return this.fatCalories;
     }
 
+    getPercentageDistrubution_Calories(number: number){
+        return Math.round((number / (this.proteinCalories + this.fatCalories + this.carbCalories)) * 100) + "%";
+    }
+
     getCurrentMealForUser(){
         let userID = localStorage.getItem("userId");
         const headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
-        return this.http.get("http://localhost:8080/healthapp/usermeals/"+userID,{headers:headers})
+        return this.http.get("http://ec2-52-18-60-87.eu-west-1.compute.amazonaws.com:8080/healthapp/usermeals/"+userID,{headers:headers})
         .map((response: Response) =>{
             return response.json().obj;
         }).catch((error: Response)=> Observable.throw(error.json())); 
@@ -341,7 +346,7 @@ populateBreakfast()
     postMeal(userMeal: Object){
         const body = JSON.stringify(userMeal);
         const headers = new Headers({'Content-Type': 'application/json'});
-        return this.http.post('http://localhost:8080/healthapp/meals', body,{headers: headers})
+        return this.http.post('http://ec2-52-18-60-87.eu-west-1.compute.amazonaws.com:8080/healthapp/meals', body,{headers: headers})
         .map((response: Response) => response.json())
         .catch((err: Response) => Observable.throw(err.json()));
     }
@@ -350,7 +355,7 @@ populateBreakfast()
     updateMeals(id: string,meals: Object){
         const body = JSON.stringify(meals);
         const headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
-        return this.http.patch('http://localhost:8080/healthapp/usermeals/'+id, body,{headers: headers})
+        return this.http.put('http://ec2-52-18-60-87.eu-west-1.compute.amazonaws.com:8080/healthapp/usermeals/'+id, body,{headers: headers})
         .map((response: Response) => response.json())
         .catch((err: Response) => Observable.throw(err.json()));
     }

@@ -18,7 +18,7 @@ export class RegisterService{
         const body = JSON.stringify(user);
         console.log(body);
         const headers = new Headers({'Content-Type': 'application/json'});
-       return this.http.post('http://localhost:8080/healthapp/users',body,{headers: headers})
+       return this.http.post('http://ec2-52-18-60-87.eu-west-1.compute.amazonaws.com:8080/healthapp/users',body,{headers: headers})
        .map((response: Response) => response.json())
        .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -26,7 +26,7 @@ export class RegisterService{
     signIn(user: User){
         const body = JSON.stringify(user);
         const headers = new Headers({'Content-Type': 'application/json'});
-       return this.http.post('http://localhost:8080/healthapp/users/signin',body,{headers: headers})
+       return this.http.post('http://ec2-52-18-60-87.eu-west-1.compute.amazonaws.com:8080/healthapp/users/signin',body,{headers: headers})
        .map((response: Response) => response.json())
        .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -35,7 +35,7 @@ export class RegisterService{
         localStorage.clear();
     }
     getUser(){
-        return this.http.get('http://localhost:8080/healthapp/users')
+        return this.http.get('http://ec2-52-18-60-87.eu-west-1.compute.amazonaws.com:8080/healthapp/users')
         .map((response: Response) => {
             const messages = response.json().obj;
             let transformedMessages: String[] =[];

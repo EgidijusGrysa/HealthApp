@@ -51,6 +51,7 @@ export class VoiceInputService{
     }
 
     startLisening_NoUI(){
+        
         this.speech.requestPermission().then(
             ()=> {
                 console.log("permission granted");

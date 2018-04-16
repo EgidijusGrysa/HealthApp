@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ToastController } from "ionic-angular";
+import { ToastController, Toast } from "ionic-angular";
 
 @Injectable()
 export class PopUpWindowService{
@@ -28,5 +28,10 @@ export class PopUpWindowService{
         });
 
         toast.present();
+        
+    }
+
+    deleteToast(toast:Toast){
+        toast.dismiss();
     }
 }

@@ -22,6 +22,7 @@ export class NutritionPage implements OnInit{
 
   private arc: any;
   private labelArc: any;
+  private labelArc2: any;
   private pie: any;
   private color: any;
   private svg: any;
@@ -55,13 +56,19 @@ export class NutritionPage implements OnInit{
 
   private initSvg(){
     // colors for the chart
-    this.color = d3Scale.scaleOrdinal().range(["#98abc5", "#8a89a6", "#7b6888"]);
+    this.color = d3Scale.scaleOrdinal().range(["#00FF00", "#ff1200", "#4195e5"]);
     //the size of the chart
     this.arc = d3Shape.arc().outerRadius(this.radius-20).innerRadius(0);
     //the radius of text inside the chart
     this.labelArc = d3Shape.arc()
-    .outerRadius(this.radius - 100)
+    .outerRadius(this.radius - 50)
     .innerRadius(this.radius - 50);
+    //data for the chart0
+    this.pie = d3Shape.pie().sort(null).value((x:any)=>x.calories);
+
+    this.labelArc2 = d3Shape.arc()
+    .outerRadius(this.radius - 100)
+    .innerRadius(this.radius - 100);
     //data for the chart
     this.pie = d3Shape.pie().sort(null).value((x:any)=>x.calories);
 
@@ -84,7 +91,11 @@ export class NutritionPage implements OnInit{
     g.append("path").attr("d",this.arc).style("fill",(x:any)=>this.color(x.data.name));
 
     g.append("text").attr("transform", (d: any) => "translate(" + this.labelArc.centroid(d) + ")")
-                    .attr("dy", ".35em").text((d: any) => d.data.name);
+                    .attr("dy", ".100em")
+                    .attr("font-size","25").text((d: any) => d.data.name);
+    g.append("text").attr("transform", (d: any) => "translate(" + this.labelArc2.centroid(d) + ")")
+                    .attr("dy", ".40em")
+                    .attr("font-size","20").text((d: any) => d.data.perc);
 
   }
 
@@ -97,9 +108,9 @@ export class NutritionPage implements OnInit{
       },
         err=>{
             console.log("Voicer Error: " + err);
-            setTimeout(()=>{
-                this.voiceInputLisen_Background();   
-            },1000);
+            // setTimeout(()=>{
+            //     this.voiceInputLisen_Background();   
+            // },1000);
         });
     }
     
@@ -174,18 +185,29 @@ export class NutritionPage implements OnInit{
     this.omega = o.toFixed(1);
 
     this.calloryDistrubution = [
-      {name:"Protein",calories:this.mealPlanner.getProteinCalories()},
-      {name:"Carbohydrates",calories:this.mealPlanner.getCarbsCalories()},
-      {name:"Fats",calories:this.mealPlanner.getFatCalories()}
-    ];
+      {
+        name:"Protein",
+        perc: this.mealPlanner.getPercentageDistrubution_Calories(this.mealPlanner.getProteinCalories()),
+        calories:this.mealPlanner.getProteinCalories()
+      },
+      {
+        name:"Carbohydrates",
+      perc: this.mealPlanner.getPercentageDistrubution_Calories(this.mealPlanner.getCarbsCalories()),
+      calories:this.mealPlanner.getCarbsCalories()
+    },
+      {
+        name:"Fats",
+        perc: this.mealPlanner.getPercentageDistrubution_Calories(this.mealPlanner.getFatCalories()),
+        calories:this.mealPlanner.getFatCalories()
+      }];
+    
     console.log(this.calloryDistrubution);
     this.initSvg();
     this.drawPieChart();
   
 
-    //this.voiceInputLisen_Background();
+    this.voiceInputLisen_Background();
   }
 
   
-
 }

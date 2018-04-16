@@ -44,7 +44,7 @@ export class RegisterPage implements OnInit {
     private app: App) {
     this.messages = new Messages();
     //this.popUpCntrl.createToastWithClose(this.messages.doubleTap,"bottom");
-    this.voiceActive = false;
+    this.voiceActive = true;
     this.isSelected = false;
   }
 
